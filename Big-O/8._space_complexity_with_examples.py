@@ -16,7 +16,7 @@ def recursive_sum(n):
     return n + recursive_sum(n - 1)
 
 # ▶️ Call the function with input 3
-recursive_sum(3)
+print(recursive_sum(3))
 
 # ------------------------------------------------------
 # 🧠 Explanation - Step by Step (with Stack Visualization)
@@ -58,7 +58,7 @@ def pair_sum(a, b):
     return a + b
 
 # ▶️ Call the function with input 4
-pair_sum_sequence(4)
+print(pair_sum_sequence(4))
 
 # ------------------------------------------------------
 # 🧠 Explanation - Step by Step
