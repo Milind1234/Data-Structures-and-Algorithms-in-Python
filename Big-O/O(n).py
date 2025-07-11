@@ -1,22 +1,44 @@
-#  O(n) time complexity is also called as linear time complexity.
-#  Here, time complexity will grow in direct proportion to the size of input data.
+# -------------------------------------------------------------------
+# 📌 O(n) – Linear Time Complexity
+# -------------------------------------------------------------------
+
 def print_items(n):
+    """
+    📦 This function prints numbers from 0 to n-1.
+    
+    🔁 It runs a single loop from 0 to n.
+    ➤ The number of operations grows directly with the size of input `n`.
+    
+    ⏱️ Time Complexity: O(n)
+    """
+
     for i in range(n):
-        print(i)            
+        print(i)
 
+# ▶️ Test the function with n = 10
 print_items(10)
-# So here we have our function.
-# Then I'm going to call this function for number ten.
-# Now, if I run this, you will see that it's going to print out to the console from zero until nine.
-# So this is going to be O(n) time complexity, because we have passed over here ten and it is performing this operation ten times.
-# Now, if I just change it to five and run our code, you will see that it's going to perform five times.
-# Now, if I just go ahead and change it to 100, you will see that it's going to perform it from 0 to 99.
-# So this means that as the input grows, the number of the operations that is performing is going to also grow.
-# So this is going to be O(n) time complexity. So to put it in another way, we pass the function the number n and the function runs n times.
-# So when we pass ten, it runs ten times. When we pass 100, it runs 100 times. So that is what O of N is.
 
-#  Now let's look at this one in the graph that we have created before.
-# 
+# -------------------------------------------------------------------
+# 🧠 EXPLANATION:
+# -------------------------------------------------------------------
+#
+# We define a function `print_items(n)` that runs a loop from 0 to n-1.
+#
+# 👉 If n = 10 → prints 10 numbers (0 to 9)
+# 👉 If n = 5  → prints 5 numbers (0 to 4)
+# 👉 If n = 100 → prints 100 numbers (0 to 99)
+#
+# So as the input increases, the number of operations increases *linearly*.
+#
+# ✅ That’s what we call **O(n)** ➝ Linear Time Complexity.
+#
+# In simple words:
+#     If input is n, function runs n times.
+
+# -------------------------------------------------------------------
+# 📈 GRAPHICAL VIEW (ASCII Style)
+# -------------------------------------------------------------------
+#
 #      |                                    / O(n)
 #    O |                                 /
 #    P |                              /
@@ -30,9 +52,32 @@ print_items(10)
 #    S |__ / __ __ __ __ __ __ __ __ __ __  O(1)
 #      |/__ __ __ __ __ __ __ __ __ __ __ __
 #             E L E M E N T S
-# 
-# Now the O(n) time complexity is going to be the proportional straight line.
-# So the number of operations is going to be the proportional to the whatever n is.
-# So as we mentioned before, on x axis we have elements and on y axis we have operations.
-# So as you can see, as the number of the elements increases, the number of operations increases linearly.
-# So this is called O(n) time complexity.
+#
+# 🔍 X-axis = Number of elements (input size)
+# 🔍 Y-axis = Number of operations performed
+#
+# The number of operations grows at the same rate as the input → 📈 Linear
+
+# -------------------------------------------------------------------
+# ✅ FINAL TAKEAWAY:
+# -------------------------------------------------------------------
+# - O(n) is called Linear Time Complexity.
+# - It means as input increases, operations increase at the same rate.
+# - Perfect for simple loops that run once per input element.
+# -------------------------------------------------------------------
+
+ 
+#                O(n^2)
+#      |           /                         / O(n)
+#    O |          /                       /
+#    P |         /                     /
+#    E |        /                   /
+#    R |       /                 /
+#    A |      /               /
+#    T |     /             /
+#    I |    /          /
+#    O |   /       /
+#    N |  /     /
+#    S |_/_ / __ __ __ __ __ __ __ __ __ __  O(1)
+#      |/__ __ __ __ __ __ __ __ __ __ __ __
+#             E L E M E N T S
