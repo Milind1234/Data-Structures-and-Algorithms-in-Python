@@ -1,0 +1,22 @@
+# We are going to look at another time complexity, which is O(n⌃2) time complexity.
+
+def print_items(n):              #|
+    for i in range(n):           #|...................O(N)    |
+                                 #|                           | n x n = n^2
+        for j in range(n):       #|...................O(N)    |
+                                 #|
+            print(f"( {i} , {j} )")  #| 
+
+print_items(10)
+
+# So here we have the nested loops inside each other.
+# So this means that for each i we are going to run this second loop from zero until n, then it continues
+# like this until we have finished all first loops over here.
+# So if I just go ahead and run this for ten, what will be in our output?
+# So we are going to count the number of the operations that is performed.
+# So it's going to start from zero and zero and it will continue nine and nine.
+# So this means that we have performed over here 100 operations.
+# So when we pass ten, it is performing 100 operations.
+# So this means that the first loop over here is going to run n times and the second also will run n times.
+# But for each first loop we are going to run the second one.
+# So this means that we are going to multiply them and it's going to be O(n⌃2) time complexity.
