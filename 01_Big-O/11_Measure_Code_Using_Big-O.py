@@ -51,3 +51,4 @@ findBiggestNumber(sampleArray)
 # Remember:
 #   - If parts of code run independently → Add time: O(A) + O(B)
 #   - If parts of code are nested         → Multiply time: O(A * B)
+# 

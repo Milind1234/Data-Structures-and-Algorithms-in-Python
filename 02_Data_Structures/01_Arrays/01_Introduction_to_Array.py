@@ -1,6 +1,5 @@
 # 📘 Arrays Detailed Notes
 
----
 
 ## 🧠 What is an Array?
 """
@@ -25,7 +24,6 @@ Imagine a box of **macarons**:
 Just like an array!
 """
 
----
 
 ## 🔢 Types of Arrays
 
@@ -67,7 +65,6 @@ a = [
 ]
 print(a[2][0][2])  # Output: 14
 
----
 
 ## 🧼 Arrays in Memory (RAM)
 
@@ -86,7 +83,6 @@ print(a[2][0][2])  # Output: 14
 📜 **Note:** All elements of an array (1D/2D/3D) are stored contiguously in memory.
 """
 
----
 
 ## 📚 Summary Table
 
@@ -98,7 +94,6 @@ print(a[2][0][2])  # Output: 14
 | 3D         | a[i][j][k]       | Multiple 2D arrays (cube)    |
 """
 
----
 
 ## 🔧 Operations on Arrays
 
@@ -112,7 +107,6 @@ print(a[2][0][2])  # Output: 14
 | Search           | O(n) or O(log n)|
 """
 
----
 
 ## 📌 Key Properties
 """
@@ -122,7 +116,7 @@ print(a[2][0][2])  # Output: 14
 - Stored in contiguous memory
 """
 
----
+
 
 ## 🧰 Python Tip: Array Modules
 """
@@ -138,7 +132,7 @@ a = array('i', [1, 2, 3, 4])
 import numpy as np
 a = np.array([[1, 2], [3, 4]])
 
----
+
 
 ## 📌 References
 """
@@ -146,7 +140,6 @@ a = np.array([[1, 2], [3, 4]])
 - W3Schools - Python Arrays: https://www.w3schools.com/python/python_arrays.asp
 """
 
----
 
 """
 ✅ *This section gives you complete clarity on arrays from theory to code to memory layout.*
