@@ -115,10 +115,9 @@ my_list = list()
 
 while True:
     a= input("Enter the no. and if not the type done:")
-    if a.lower() == "done":
-        break
-    else:
-        my_list.append(input)
-        sum = sum(my_list)
-        avg = sum // len(my_list)
-        print(avg)
+    if a.lower() == "done":break
+    value = float(a) 
+    my_list.append(value)
+
+avg = sum(my_list) // len(my_list)
+print(avg)
