@@ -1,11 +1,17 @@
 # Calculate Average Temperature
-my_list = list()
-def Calc_Avg_Temp(list,n):
-    for i in range(n):
-        temp_input =int(input(f"Enter day {i+1} temp: "))
-        list.append(temp_input)
-    avg = sum(list) // len(list)
-    print(avg)
+my_list = []
 
-n=int(input("how many days you want to cal avg temp: "))
-Calc_Avg_Temp(my_list,n)
+def Calc_Avg_Temp(temp_list, n):
+    for i in range(n):
+        temp_input = int(input(f"Enter day {i+1} temp: "))
+        temp_list.append(temp_input)
+    
+    avg = sum(temp_list) // len(temp_list)
+    print(f"Average Temperature: {avg}")
+    
+    for idx, temp in enumerate(temp_list):
+        if temp > avg:
+            print(f"The temperature {temp} of day {idx+1} is above the avg temp {avg}.")
+
+n = int(input("How many days you want to calculate avg temp for? "))
+Calc_Avg_Temp(my_list, n)
