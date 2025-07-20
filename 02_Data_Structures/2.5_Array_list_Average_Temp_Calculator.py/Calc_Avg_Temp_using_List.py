@@ -1,4 +1,4 @@
-# Calculate Average Temperature
+# Calculate Average Temperature Using List
 my_list = []
 
 def Calc_Avg_Temp(temp_list, n):
