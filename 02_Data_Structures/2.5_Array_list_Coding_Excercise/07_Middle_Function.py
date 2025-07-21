@@ -26,8 +26,8 @@ Output: [2, 3]
 # -----------------------------
 # ✅ Time and Space Complexity
 # -----------------------------
-# Time Complexity: O(k), where k = len(lst) - 2 (elements in the middle).
-# Space Complexity: O(k), since a new list of size k is created.
+# Time Complexity: O(n), where k = len(lst) - 2 (elements in the middle).
+# Space Complexity: O(n), since a new list of size k is created.
 
 # -----------------------------
 # ✅ Optimal Code Implementation
