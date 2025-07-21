@@ -84,3 +84,4 @@ print("Optimized Result:", max_product_optimized(arr))  # Output: 63
 - Optimized approach is much faster (O(n)) and best for large arrays.
 - Both return the same correct result when the input has ≥2 positive integers.
 """
+
