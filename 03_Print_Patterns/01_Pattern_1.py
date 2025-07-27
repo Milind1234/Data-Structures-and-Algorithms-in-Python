@@ -1,11 +1,20 @@
 # Pattern Printing using Nested Loops
 # Goal: Print a square of stars (4x4)
+def print_square_pattern():  
+    # Ask user for number of rows
+    n = int(input("Enter number of rows: "))
+    
+    # Outer loop → controls rows
+    for i in range(n):
+        # Inner loop → controls columns
+        for j in range(n):
+            print("*", end="")  # Print star on same line
+        print()  # Move to next line after one row
 
-for i in range(0, 4):            # Outer loop → controls number of rows (4 rows)
-    for j in range(0, 4):        # Inner loop → controls number of columns (4 columns)
-        print("*", end="")       # Print star on the same line (end="" avoids new line)
-    print()                      # Move to next line after printing one full row
 
+# Function call
+print_square_pattern()
+print_square_pattern()
 
 """
 --- EXPLANATION OF FLOW ---
