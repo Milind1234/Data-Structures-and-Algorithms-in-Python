@@ -86,6 +86,13 @@ t5 = ("a", "b", "c")
 t6 = (1, 2, 3)
 print(list(zip(t5, t6)))     # [('a',1), ('b',2), ('c',3)] (O(n))
 
+# --- 7. Useful Built-in Functions (with join) ---
+t5 = ("Hello", "World", "from", "Python")
+print(" ".join(t5))   # Output: 'Hello World from Python'
+# Time Complexity of join -> O(n) where n = total length of all strings
+# Space Complexity -> O(n) (creates a new string)
+
+
 # --- 8. Conversion ---
 list_data = [10, 20, 30]
 converted_tuple = tuple(list_data)
