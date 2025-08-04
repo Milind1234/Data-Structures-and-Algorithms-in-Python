@@ -118,22 +118,24 @@ class LinkedList:
         return result
 
 # ----------------- TESTING THE IMPLEMENTATION -----------------
-new_linked_list = LinkedList()
-new_linked_list.append(10)
-new_linked_list.append(20)
-new_linked_list.append(30)
-new_linked_list.append(40)
-new_linked_list.append(50)
-new_linked_list.prepend(60)
+new_LinkedList = LinkedList()
+new_LinkedList.insert(0,70)
+new_LinkedList.append(10)
+new_LinkedList.append(20)
+new_LinkedList.append(30)
+new_LinkedList.append(40)
+new_LinkedList.prepend(50)
+print(new_LinkedList)        # 50 --> 70 --> 10 --> 20 --> 30 --> 40
+new_LinkedList.insert(5,60)  # inserting at index 5
+print(new_LinkedList)        # 50 --> 70 --> 10 --> 20 --> 30 --> 60 --> 40
 
-print("Before Insert:", new_linked_list)
 
 # Insert at valid index
 index = 2
 value = 100
-status = new_linked_list.insert(index, value)
+status = new_LinkedList.insert(index, value)
 if status:
-    print(f"After inserting {value} at index {index}: ", new_linked_list)
+    print(f"After inserting {value} at index {index}: ", new_LinkedList)
 else:
     print(f"Insertion failed: index {index} is out of range.")
 
@@ -205,4 +207,3 @@ INTERVIEW QUESTIONS & ANSWERS
         • May need to shift all elements after the index to make space.
         • Average case insertion complexity is O(n).
 """
-
