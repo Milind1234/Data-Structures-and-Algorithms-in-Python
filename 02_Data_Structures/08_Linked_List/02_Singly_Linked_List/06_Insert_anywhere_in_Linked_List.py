@@ -206,4 +206,174 @@ INTERVIEW QUESTIONS & ANSWERS
    - Array:
         • May need to shift all elements after the index to make space.
         • Average case insertion complexity is O(n).
+        
+        
+    
+--------------------------------------------------------
+Simple Code for Insert Operation
+--------------------------------------------------------
+Insert operation allows adding a new node at:
+    - The beginning (index = 0)
+    - The end (index = length)
+    - Any valid index in between
+
+--------------------------------------------------------
+CASES HANDLED IN THIS FUNCTION
+--------------------------------------------------------
+1) Invalid index:
+    - If index < 0 or index > length → Operation is not allowed.
+2) Insert at beginning:
+    - index == 0 → same as prepend().
+3) Insert at end:
+    - index == length → same as append().
+4) Insert at middle:
+    - Traverse to (index - 1)th node, adjust pointers.
+
+--------------------------------------------------------
+CODE IMPLEMENTATION
+--------------------------------------------------------
+"""
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+        
+class LinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+        self.length = 0
+        
+    def append(self,value):
+        new_node = Node(value)
+        if self.head is None:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            self.tail.next = new_node
+            self.tail = new_node
+        self.length += 1
+        
+    def prepend(self,value):
+        new_node = Node(value)
+        if self.head is None:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            new_node.next = self.head
+            self.head = new_node
+        self.length += 1
+        
+    def insert(self, index, value):
+    # 1) Create a new node
+        new_node = Node(value)
+
+    # 2) Handle invalid index
+        if index < 0 or index > self.length:
+            return "Index out of range"
+    
+    # 3) Insert at head (index 0)
+        if index == 0:
+            self.prepend(value)      # uses existing prepend()
+            return "Inserted Successfully"
+        
+        # 4) Insert at tail (index == length)
+        if index == self.length:
+            self.append(value)       # uses existing append()
+            return "Inserted Successfully"
+        
+        # 5) Insert in middle
+        temp_node = self.head
+        for _ in range(index - 1):
+            temp_node = temp_node.next
+        new_node.next = temp_node.next
+        temp_node.next = new_node
+    
+        # 6) Increase length
+        self.length += 1
+        return "Inserted Successfully"
+
+    
+    def __str__(self):
+        temp_node = self.head
+        result = ''
+        while temp_node is not None:
+            result += str(temp_node.value)
+            if temp_node.next is not None:
+                result += ' --> '
+            temp_node = temp_node.next
+        return result
+
+# TEST
+new_LinkedList = LinkedList()
+new_LinkedList.append(10)
+new_LinkedList.append(20)
+new_LinkedList.append(30)
+new_LinkedList.append(40)
+new_LinkedList.prepend(50)
+print(new_LinkedList)
+
+print(new_LinkedList.insert(7,100))  # Invalid
+print(new_LinkedList)                # unchanged
+
+print(new_LinkedList.insert(5,100))  # Valid (append at end)
+print(new_LinkedList)
+
+
+"""
+--------------------------------------------------------
+ASCII VISUALIZATION
+--------------------------------------------------------
+Example Linked List before insert(2, 100):
+Head → [50|•] → [10|•] → [20|•] → [30|•] → None
+Tail -------------------------^
+
+Index positions: 
+ 0 → 50
+ 1 → 10
+ 2 → 20
+ 3 → 30
+
+Steps:
+- Traverse to node at index-1 (1 → value 10)
+- Link new_node(100) to node at index (20)
+- Link previous node (10) to new_node(100)
+
+After insert(2, 100):
+Head → [50|•] → [10|•] → [100|•] → [20|•] → [30|•] → None
+Tail ------------------------------^
+
+--------------------------------------------------------
+TIME & SPACE COMPLEXITY
+--------------------------------------------------------
+Case-wise:
+1) Insert at head (index 0) → O(1)
+2) Insert at tail (index == length) → O(1)
+3) Insert at middle → O(n) (due to traversal)
+Space complexity: O(1) (only one node created)
+
+--------------------------------------------------------
+INTERVIEW QUESTIONS
+--------------------------------------------------------
+1) Why is inserting at head O(1)?
+    - Only head pointer changes, no traversal required.
+
+2) Why is inserting at tail O(1)?
+    - Tail pointer is maintained, direct access.
+
+3) Why is inserting in the middle O(n)?
+    - Traversal required to find (index - 1)th node.
+
+4) What happens when index is invalid?
+    - Function returns "Index out of range" without modifying list.
+
+5) Can we avoid O(n) insertion for middle?
+    - No, because singly linked list requires sequential access.
+
+--------------------------------------------------------
+KEY TAKEAWAY
+--------------------------------------------------------
+- Use tail pointer to make insert at end O(1).
+- Handle edge cases separately to keep logic simple.
+- Insert in the middle requires traversal, hence O(n).
 """
