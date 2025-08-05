@@ -84,7 +84,15 @@ class LinkedList:
                 result += ' --> '
             temp_node = temp_node.next
         return result
-
+    
+    def traverse(self):
+        current_node = self.head
+        node_number = 1  # Start counting from 1
+        while current_node is not None:
+            print(f"Node {node_number}: {current_node.value}")
+            current_node = current_node.next
+            node_number += 1
+            
     # -------------------------------------------
     # 1) INDEX-BASED SEARCH (0-based indexing)
     # -------------------------------------------
@@ -134,7 +142,7 @@ new_LinkedList.append(30)
 new_LinkedList.append(40)
 new_LinkedList.prepend(50)   # 50 --> 10 --> 20 --> 30 --> 40
 print("Linked List:", new_LinkedList)
-
+new_LinkedList.traverse()
 print(new_LinkedList.search_by_index(40))        # → Value 40 found at index 4
 print(new_LinkedList.search_by_index(100))       # → Value not found
 print(new_LinkedList.search_by_node_number(40))  # → Node 5: 40
