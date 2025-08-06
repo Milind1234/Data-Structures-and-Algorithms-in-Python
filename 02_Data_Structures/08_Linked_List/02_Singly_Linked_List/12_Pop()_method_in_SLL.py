@@ -171,13 +171,47 @@ print(f"After popping the Last node: {new_LinkedList}")
 # ---------------------------------------------------------
 # Simplified Code only for Pop() Method
 # ---------------------------------------------------------
-
 # ------------------ NODE CLASS ------------------------
 class Node:
     def __init__(self, value):
         self.value = value
         self.next = None
 
+"""
+============================================================
+2) POP METHOD (Remove Last Node)
+============================================================
+
+Removes the tail node and updates the pointer.
+
+🧠 STEPS:
+1. If list is empty (length == 0), return "No Node to Pop"
+2. If only 1 node:
+    - Set head = None and tail = None
+3. Else:
+    - Traverse to second last node (node before tail)
+    - Set that node as new tail
+    - Set tail.next = None
+4. Decrease length
+5. Return value of popped node
+
+🧮 TIME COMPLEXITY:
+- O(n) → Linear, because traversal is required
+
+🧮 SPACE COMPLEXITY:
+- O(1)
+
+🧩 POINTER VISUALIZATION:
+
+Before:
+[head] -> [10] -> [20] -> [30] -> [40] -> None
+
+After pop():
+[head] -> [10] -> [20] -> [30] -> None
+(tail now at 30, 40 disconnected)
+
+============================================================
+"""
 
 # ---------------- LINKED LIST CLASS -------------------
 class LinkedList:
@@ -188,7 +222,7 @@ class LinkedList:
 
     def append(self, value):
         new_node = Node(value)
-        if self.head is None:
+        if self.length == 0:
             self.head = new_node
             self.tail = new_node
         else:
@@ -196,56 +230,47 @@ class LinkedList:
             self.tail = new_node
         self.length += 1
 
-    # ---------------------------------------------------
-    # POP (Remove last node)
-    # ---------------------------------------------------
     def pop(self):
-        """
-        Removes and returns the last node of the linked list.
-
-        Steps:
-        1) If length == 0 -> return "No Node to Pop"
-        2) Store tail as popped_node
-        3) If only one node -> set head = tail = None
-        4) Else traverse till node before tail and make it new tail
-        5) Break popped_node link
-        6) Decrement length and return value
-        """
         if self.length == 0:
             return "No Node to Pop"
-
         popped_node = self.tail
-
         if self.length == 1:
             self.head = None
             self.tail = None
         else:
             temp = self.head
-            while temp.next != self.tail:
+            while temp.next is not self.tail:
                 temp = temp.next
             self.tail = temp
             self.tail.next = None
-
         self.length -= 1
-        return f"Popped Last Node --> {popped_node.value}"
+        return f"Popped last node: {popped_node.value}"
 
     def __str__(self):
         temp = self.head
-        result = ''
+        out = ""
         while temp:
-            result += str(temp.value)
+            out += str(temp.value)
             if temp.next:
-                result += ' --> '
+                out += " --> "
             temp = temp.next
-        return result
+        return out
 
+# ----------------- USAGE EXAMPLE ---------------------
+ll = LinkedList()
+ll.append(10)
+ll.append(20)
+ll.append(30)
+ll.append(40)
+print("Original:", ll)
+print(ll.pop())
+print("After popping:", ll)
 
-# ------------------ USAGE -----------------------------
-if __name__ == "__main__":
-    ll = LinkedList()
-    ll.append(10)
-    ll.append(20)
-    ll.append(30)
-    print("Before pop:", ll)
-    print(ll.pop())
-    print("After pop :", ll)
+"""
+============================================================
+💡 INTERVIEW QUESTIONS:
+- Why is pop() O(n)? Can you make it O(1)?
+- What happens if you don't set tail.next = None?
+- How does singly linked list handle backward traversal?
+============================================================
+"""
