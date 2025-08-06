@@ -165,3 +165,87 @@ print(f"After popping the first node: {new_LinkedList}")
 print("__________________________________________________________________")
 print(new_LinkedList.pop())        # Pop last node
 print(f"After popping the Last node: {new_LinkedList}")
+
+
+#______________________________________________________________________________________________________________________________
+# ---------------------------------------------------------
+# Simplified Code only for Pop() Method
+# ---------------------------------------------------------
+
+# ------------------ NODE CLASS ------------------------
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+
+
+# ---------------- LINKED LIST CLASS -------------------
+class LinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+        self.length = 0
+
+    def append(self, value):
+        new_node = Node(value)
+        if self.head is None:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            self.tail.next = new_node
+            self.tail = new_node
+        self.length += 1
+
+    # ---------------------------------------------------
+    # POP (Remove last node)
+    # ---------------------------------------------------
+    def pop(self):
+        """
+        Removes and returns the last node of the linked list.
+
+        Steps:
+        1) If length == 0 -> return "No Node to Pop"
+        2) Store tail as popped_node
+        3) If only one node -> set head = tail = None
+        4) Else traverse till node before tail and make it new tail
+        5) Break popped_node link
+        6) Decrement length and return value
+        """
+        if self.length == 0:
+            return "No Node to Pop"
+
+        popped_node = self.tail
+
+        if self.length == 1:
+            self.head = None
+            self.tail = None
+        else:
+            temp = self.head
+            while temp.next != self.tail:
+                temp = temp.next
+            self.tail = temp
+            self.tail.next = None
+
+        self.length -= 1
+        return f"Popped Last Node --> {popped_node.value}"
+
+    def __str__(self):
+        temp = self.head
+        result = ''
+        while temp:
+            result += str(temp.value)
+            if temp.next:
+                result += ' --> '
+            temp = temp.next
+        return result
+
+
+# ------------------ USAGE -----------------------------
+if __name__ == "__main__":
+    ll = LinkedList()
+    ll.append(10)
+    ll.append(20)
+    ll.append(30)
+    print("Before pop:", ll)
+    print(ll.pop())
+    print("After pop :", ll)
