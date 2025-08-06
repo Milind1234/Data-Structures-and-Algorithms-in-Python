@@ -73,7 +73,7 @@ class LinkedList:
     def pop_first(self):
         # Case 1: List is empty
         if self.length == 0:
-            return None
+            return f"No Node to pop"
 
         # Store reference of node to be removed
         popped_node = self.head
