@@ -161,6 +161,41 @@ class Node:
         self.value = value
         self.next = None
 
+"""
+============================================================
+1) POP_FIRST METHOD (Remove First Node)
+============================================================
+
+Removes the head node and updates the pointer.
+
+🧠 STEPS:
+1. If list is empty (length == 0), return "No Node to pop"
+2. Store reference to current head (to be popped)
+3. If only one node exists:
+    - Set head = None and tail = None
+4. Else:
+    - Set head = head.next
+    - Disconnect popped_node.next = None
+5. Decrease length
+6. Return value of popped node
+
+🧮 TIME COMPLEXITY:
+- O(1) → Constant time
+
+🧮 SPACE COMPLEXITY:
+- O(1)
+
+🧩 POINTER VISUALIZATION:
+
+Before:
+[head] -> [10] -> [20] -> [30] -> None
+
+After pop_first():
+[head] -> [20] -> [30] -> None
+(disconnect [10])
+
+============================================================
+"""
 
 # ---------------- LINKED LIST CLASS -------------------
 class LinkedList:
@@ -171,7 +206,7 @@ class LinkedList:
 
     def append(self, value):
         new_node = Node(value)
-        if self.head is None:
+        if self.length == 0:
             self.head = new_node
             self.tail = new_node
         else:
@@ -179,53 +214,43 @@ class LinkedList:
             self.tail = new_node
         self.length += 1
 
-    # ---------------------------------------------------
-    # POP_FIRST (Remove first node)
-    # ---------------------------------------------------
     def pop_first(self):
-        """
-        Removes and returns the first node of the linked list.
-
-        Steps:
-        1) If length == 0 -> return "No Node to pop"
-        2) Store the head in popped_node
-        3) If only one node exists -> set head = tail = None
-        4) Else move head to next node & break popped_node link
-        5) Decrement length and return value
-        """
-
         if self.length == 0:
             return "No Node to pop"
-
         popped_node = self.head
-
         if self.length == 1:
             self.head = None
             self.tail = None
         else:
             self.head = self.head.next
             popped_node.next = None
-
         self.length -= 1
-        return f"Popped First Node --> {popped_node.value}"
+        return f"Popped first node: {popped_node.value}"
 
     def __str__(self):
         temp = self.head
-        result = ''
+        out = ""
         while temp:
-            result += str(temp.value)
+            out += str(temp.value)
             if temp.next:
-                result += ' --> '
+                out += " --> "
             temp = temp.next
-        return result
+        return out
 
+# ----------------- USAGE EXAMPLE ---------------------
+ll = LinkedList()
+ll.append(10)
+ll.append(20)
+ll.append(30)
+print("Original:", ll)
+print(ll.pop_first())
+print("After popping:", ll)
 
-# ------------------ USAGE -----------------------------
-if __name__ == "__main__":
-    ll = LinkedList()
-    ll.append(10)
-    ll.append(20)
-    ll.append(30)
-    print("Before pop_first:", ll)
-    print(ll.pop_first())
-    print("After pop_first :", ll)
+"""
+============================================================
+💡 INTERVIEW QUESTIONS:
+- Why is pop_first() O(1) but pop() is O(n)?
+- What happens if you forget to reduce length?
+- How do you handle popping from an empty list?
+============================================================
+"""
