@@ -146,6 +146,8 @@ class LinkedList:
             return "Index out of range"
         if index == 0:
             return self.pop_first()
+        if index == self.length:
+            return self.pop()
         prev_node = self.get(index - 1)
         popped_node = prev_node.next
         prev_node.next = popped_node.next
