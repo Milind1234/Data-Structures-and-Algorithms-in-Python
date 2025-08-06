@@ -43,7 +43,7 @@ Before removal at index=2:
     head
      ↓
     50 → 10 → 20 → 30 → 40 → None
-                ↑
+               ↑
                index=2 (Node to remove = 20)
 
 After removal:
