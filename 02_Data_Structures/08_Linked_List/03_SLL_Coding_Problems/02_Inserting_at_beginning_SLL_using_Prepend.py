@@ -30,7 +30,7 @@ class LinkedList:
 # 🔹 prepend(value): Inserts node at the beginning
     def prepend(self, value):
         new_node = Node(value)        # Step 1: Create a new node
-        
+    
         # 🔹 Case 1: Empty List
         if self.head is None:
             self.head = new_node      # Head and tail both point to the new node
