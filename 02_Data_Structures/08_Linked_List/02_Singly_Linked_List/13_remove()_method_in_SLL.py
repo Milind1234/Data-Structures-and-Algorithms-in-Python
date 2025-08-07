@@ -172,7 +172,7 @@ class LinkedList:
 new_LinkedList = LinkedList()
 new_LinkedList.append(10)
 new_LinkedList.append(20)
-new_LinkedList.append(30)
+new_LinkedList.append(30)   
 new_LinkedList.append(40)
 new_LinkedList.prepend(50)    # Final: 50 → 10 → 20 → 30 → 40
 print("Initial Linked List:", new_LinkedList)
