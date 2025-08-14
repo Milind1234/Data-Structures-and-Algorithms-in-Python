@@ -134,7 +134,6 @@ class LinkedList:
             current_node.next = prev_node
             prev_node = current_node
             current_node = next_node
-
         self.head = prev_node
 
     def __str__(self):
