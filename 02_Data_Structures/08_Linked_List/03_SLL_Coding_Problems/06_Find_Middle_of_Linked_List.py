@@ -84,7 +84,7 @@ print("Middle Node Value:", middle_node.value)
 
     [10] -> [20] -> [30] -> [40] -> [50] -> None
                       ↑slow
-                              ↑fast
+                                      ↑fast
 
 🔹 Iteration 3:
     fast.next is None → STOP
