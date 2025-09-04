@@ -14,6 +14,61 @@ Function Signature:
 -------------------
 def moveZeroes(nums: List[int]) -> None
 
+
+---------------------------------------------------
+Approach 0: Brute Force (Shift Zeros)
+---------------------------------------------------
+- Scan the array, and whenever you find a zero at index i:
+    - Shift all elements after i one step left.
+    - Place a zero at the last index.
+    - Continue scanning.
+- This maintains order, but requires repeated shifting.
+
+Code:
+-----
+"""
+
+class SolutionBruteForce(object):
+    def moveZeroes(self, nums):
+        n = len(nums)
+        i = 0
+        while i < n:
+            if nums[i] == 0:
+                # Shift elements left
+                for j in range(i, n - 1):
+                    nums[j] = nums[j + 1]
+                nums[n - 1] = 0
+                n -= 1  # Reduce the "active length"
+            else:
+                i += 1
+
+"""
+Dry Run (Brute Force):
+----------------------
+nums = [0,1,0,3,12]
+
+i=0 → nums[0]=0 → shift left → [1,0,3,12,0]
+i=0 again → nums[0]=1 → not zero → i=1
+i=1 → nums[1]=0 → shift left → [1,3,12,0,0]
+i=1 again → nums[1]=3 → not zero → i=2
+i=2 → nums[2]=12 → not zero → i=3 (loop ends because n shrinks)
+
+Final Array:
+[1, 3, 12, 0, 0]
+
+Time Complexity:
+----------------
+- Worst case: O(n²), because for every zero found, we may shift ~n elements.
+
+Space Complexity:
+-----------------
+- O(1), in-place shifting.
+
+Interview Notes:
+----------------
+- Brute force works conceptually but is inefficient for large arrays.
+- Useful as a first idea before optimizing.
+
 ---------------------------------------------------
 Approach 1: Two Pointers with Swapping (Single Pass)
 ---------------------------------------------------
@@ -100,6 +155,10 @@ Final Array:
 ---------------------------------------------------
 Comparison of Approaches:
 ---------------------------------------------------
+Brute Force:
+- Pros: Simple to think about.
+- Cons: Very slow (O(n²)), not suitable for large arrays.
+
 Approach 1 (Swap-on-the-fly):
 - Pros: One pass, straightforward two-pointer method.
 - Cons: More writes (every swap does two writes).
@@ -111,15 +170,17 @@ Approach 2 (Compact then Fill):
 
 Time Complexity:
 ----------------
-Both approaches are O(n).
+- Brute Force: O(n²)
+- Approach 1: O(n)
+- Approach 2: O(n)
 
 Space Complexity:
 -----------------
-Both are O(1).
+All are O(1).
 
 Interview Notes:
 ----------------
-- Both are valid and optimal solutions.
-- Approach 1 is often accepted as the standard answer in interviews.
-- Approach 2 shows awareness of write-efficiency trade-offs.
+- Start with brute force to show understanding.
+- Optimize to Approach 1 or 2 for efficiency.
+- Mention trade-offs (swaps vs fewer writes).
 """
