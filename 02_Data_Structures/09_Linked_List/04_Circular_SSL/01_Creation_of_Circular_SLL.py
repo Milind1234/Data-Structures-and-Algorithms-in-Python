@@ -8,7 +8,7 @@
 # 📘 Circular Singly Linked List (CSLL) - Notes
 # ------------------------------------------------------
 
-# ✅ Node class: Creates a node with a value and pointer to the next node
+# ✅ Node class: Creates a node with a value and pointer to the next node 
 class Node:
     def __init__(self, value):
         self.value = value     # Data stored in the node
@@ -34,17 +34,21 @@ print("Empty CSLL -> Length:", csll_empty.length) # 0
 # tail = None
 # length = 0
 
+# ⏱️ Complexity:
+# - Time: O(1) → only initializes three attributes (constant work).
+# - Space: O(1) → only stores references for head, tail, and an integer length.
+
 
 # ------------------------------------------------------
 # 2️⃣ One-Node CSLL Implementation
 # ------------------------------------------------------
 class OneNodeCircularSinglyLinkedList:
     def __init__(self, value):
-        new_node = Node(value)
-        new_node.next = new_node   # Point back to itself (circular link)
-        self.head = new_node       # Head points to this node
-        self.tail = new_node       # Tail also points to this node
-        self.length = 1            # One node → length = 1
+        new_node = Node(value)     # O(1) → creating one node
+        new_node.next = new_node   # O(1) → circular link
+        self.head = new_node       # O(1)
+        self.tail = new_node       # O(1)
+        self.length = 1            # O(1)
 
 # 🧪 Example:
 csll_one = OneNodeCircularSinglyLinkedList(10)
@@ -60,3 +64,7 @@ print("One-Node CSLL -> Length:", csll_one.length)       # 1
 #  ↑head
 #  ↑tail
 # length = 1
+
+# ⏱️ Complexity:
+# - Time: O(1) → constant steps to create one node and assign pointers.
+# - Space: O(1) → stores only one node + three references (head, tail, length).
