@@ -75,9 +75,9 @@ class CircularSinglyLinkedList:
 
         # Case A: empty list
         if self.length == 0:
-            new_node.next = new_node
             self.head = new_node
             self.tail = new_node
+            new_node.next = new_node
 
         # Case B: insert at head
         elif index == 0:
