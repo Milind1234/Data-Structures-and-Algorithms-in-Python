@@ -25,7 +25,8 @@ To access a node at a specific index:
 # ---------------------------------------------------------------
 """
 get(index):
-1. If index < 0 or index >= length → raise IndexError
+1. If index == -1 return self.tail
+1. elif index < 0 or index >= length → raise IndexError
 2. Start from head (current_node = self.head)
 3. Repeat index times:
    - current_node = current_node.next
@@ -75,7 +76,9 @@ class CircularSinglyLinkedList:
         return "  -->  ".join(result)
     
     def get(self, index):
-        if index < 0 or index >= self.length:
+        if index == -1:
+            return self.tail
+        elif index < -1 or index >= self.length:
             raise IndexError("Index Out of Range")
         current_node = self.head
         for _ in range(index):
