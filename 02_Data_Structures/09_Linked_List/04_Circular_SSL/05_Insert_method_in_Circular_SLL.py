@@ -12,7 +12,7 @@ You need to extend the CSLL with an insert method that:
 # 🧠 Idea
 # ---------------------------------------------------------------
 """
-A CSLL is similar to a normal singly linked list, but the tail’s next 
+A CSLL  is similar to a normal singly linked list, but the tail’s next 
 always points back to the head.
 
 For insertion:
