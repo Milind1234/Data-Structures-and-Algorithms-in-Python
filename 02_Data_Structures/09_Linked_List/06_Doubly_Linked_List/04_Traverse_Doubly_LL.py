@@ -72,15 +72,15 @@ class DoublyLinkedList:
     - Print values one by one
 
     Example:
-    DLL = [100 <-> 10 <-> 20 <-> 30]
+    DLL = [10 <-> 20 <-> 30 <-> 40]
     Output:
-    100
     10
     20
     30
+    40
 
     🔗 Visualization:
-    head → [100] → [10] → [20] → [30] → None
+    head → [10] → [20] → [30] → [40] → None
 
     ⏱️ Complexity:
     - Time: O(n) → must visit all nodes
@@ -97,10 +97,10 @@ class DoublyLinkedList:
 # 🧪 Example Usage
 # ------------------------------------------------------
 DLL = DoublyLinkedList()
-DLL.append(10)     # [10]
-DLL.append(20)     # [10 <-> 20]
-DLL.append(30)     # [10 <-> 20 <-> 30]
-DLL.prepend(100)   # [100 <-> 10 <-> 20 <-> 30]
+DLL.append(20)     # [20]
+DLL.append(30)     # [20 <-> 30]
+DLL.append(40)     # [20 <-> 30 <-> 40]
+DLL.prepend(10)   # [10 <-> 20 <-> 30 <-> 40]
 
 print("DLL contents:", DLL)  
 print("\nTraversing the DLL:")
