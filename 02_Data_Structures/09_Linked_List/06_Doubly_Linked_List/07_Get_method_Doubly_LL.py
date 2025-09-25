@@ -83,7 +83,7 @@ class DoublyLinkedList:
     - Worst Case: O(n/2) ≈ O(n) (middle element)
     - Space: O(1)
     """
-    def get_element(self, index):
+    def get_value(self, index):
         if index < 0 or index >= self.length:
             raise IndexError("Index out of range")
 
@@ -109,6 +109,6 @@ DLL.append(30)     # [10 <-> 20 <-> 30]
 DLL.append(40)     # [10 <-> 20 <-> 30 <-> 40]
 
 print("DLL contents:", DLL)
-print("Element at index 2:", DLL.get_element(2))
-print("Element at index 0:", DLL.get_element(0))
-print("Element at index 3:", DLL.get_element(3))
+print("Element at index 2:", DLL.get_value(2))
+print("Element at index 0:", DLL.get_value(0))
+print("Element at index 3:", DLL.get_value(3))
