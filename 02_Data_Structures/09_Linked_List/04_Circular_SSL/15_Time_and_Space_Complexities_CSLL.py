@@ -1,10 +1,10 @@
 """
-📌 Problem: Time and Space Complexity of Circular Singly Linked List (CSLL)
+📌 Problem: Time and Space Complexity of Doubly Linked List (DLL)
 
 This file summarizes the **time complexity** and **space complexity**
-for the most common operations on a CSLL.
+for the most common operations on a DLL.
 
-✅ All operations take O(1) space (constant extra memory).
+✅ All operations take O(1) extra space (constant overhead per operation).
 ✅ Time complexity varies depending on whether traversal is needed.
 """
 
@@ -12,19 +12,18 @@ for the most common operations on a CSLL.
 # 🧠 Idea
 # ---------------------------------------------------------------
 """
-A Circular Singly Linked List (CSLL) is like a normal singly linked list,
-except the tail points back to the head, forming a circle.
-
-- Each node stores:
+A Doubly Linked List (DLL) is a linear data structure where each node has:
   • value
-  • pointer to the next node
-- The list tracks:
+  • pointer to next node
+  • pointer to previous node
+
+The list tracks:
   • head (first node)
-  • tail (last node, whose next points to head)
+  • tail (last node)
   • length (number of nodes)
 
 Operations can be:
-- O(1) if they only involve pointer updates (head/tail).
+- O(1) if they involve only head/tail pointer updates.
 - O(n) if traversal is required (search, insert at middle, remove at middle, etc.).
 """
 
@@ -40,11 +39,13 @@ Prepend             O(1)                   O(1)
 Insert (middle)     O(n)                   O(1)
 Search              O(n)                   O(1)
 Traverse            O(n)                   O(1)
+Reverse Traverse    O(n)                   O(1)
 Get (by index)      O(n)                   O(1)
 Set (update value)  O(n)                   O(1)
 Pop First           O(1)                   O(1)
-Pop Last            O(n)                   O(1)
-Remove (by index)   O(n)                   O(1)
+Pop Last            O(1)                   O(1)
+Pop (by index)      O(n)                   O(1)
+Remove (by value)   O(n)                   O(1)
 Delete all nodes    O(1)                   O(1)
 """
 
@@ -53,50 +54,58 @@ Delete all nodes    O(1)                   O(1)
 # ---------------------------------------------------------------
 """
 1. Create
-   - Just initializes head, tail, length.
+   - Initialize head, tail, length.
    - Time = O(1), Space = O(1).
 
 2. Append (add to end)
-   - Direct access to tail, update pointers.
+   - Use tail pointer, update tail.next and new_node.prev.
    - Time = O(1), Space = O(1).
 
 3. Prepend (add to head)
-   - Direct access to head, update pointers.
+   - Update head.prev and head pointer.
    - Time = O(1), Space = O(1).
 
 4. Insert (at index)
-   - Must traverse to index-1 before inserting.
+   - Traverse to index-1 before inserting.
    - Time = O(n), Space = O(1).
 
 5. Search (find value)
-   - Traverse until match or circle completes.
+   - Traverse nodes from head until found.
    - Time = O(n), Space = O(1).
 
-6. Traverse (print all nodes)
-   - Visit each node exactly once.
+6. Traverse (forward)
+   - Visit all nodes from head to tail.
    - Time = O(n), Space = O(1).
 
-7. Get (node by index)
-   - Must traverse until index.
+7. Reverse Traverse (backward)
+   - Visit all nodes from tail to head.
    - Time = O(n), Space = O(1).
 
-8. Set (update node value at index)
-   - Requires traversal to index.
+8. Get (node by index)
+   - Must traverse to index (can optimize by choosing head/tail start).
    - Time = O(n), Space = O(1).
 
-9. Pop First (remove head)
-   - Move head pointer, update tail.next.
-   - Time = O(1), Space = O(1).
+9. Set (update node value at index)
+   - Traverse to node, then update value.
+   - Time = O(n), Space = O(1).
 
-10. Pop Last (remove tail)
-    - Must traverse to node before tail.
+10. Pop First (remove head)
+    - Update head pointer, adjust prev of next node.
+    - Time = O(1), Space = O(1).
+
+11. Pop Last (remove tail)
+    - Update tail pointer, adjust next of prev node.
+    - Time = O(1), Space = O(1).
+
+12. Pop (remove by index)
+    - Traverse to index, unlink node.
     - Time = O(n), Space = O(1).
 
-11. Remove (delete node by index)
-    - Traverse to index-1 to unlink.
+13. Remove (delete by value)
+    - Search node O(n), unlink in O(1).
     - Time = O(n), Space = O(1).
 
-12. Delete all nodes
+14. Delete all nodes
     - Set head = tail = None, length = 0.
     - Time = O(1), Space = O(1).
 """
@@ -105,64 +114,61 @@ Delete all nodes    O(1)                   O(1)
 # 🔎 Dry Run Example for Operations
 # ---------------------------------------------------------------
 """
-Consider CSLL: [10 → 20 → 30 → 40] (tail.next = head)
+Consider DLL: [10 ⇄ 20 ⇄ 30 ⇄ 40]
 
 1. Append(50):
-   tail = 50, tail.next = head
-   Result: [10 → 20 → 30 → 40 → 50]
+   tail = 50, 40.next = 50, 50.prev = 40
+   Result: [10 ⇄ 20 ⇄ 30 ⇄ 40 ⇄ 50]
    Time = O(1)
 
 2. Prepend(5):
-   head = 5, tail.next = head
-   Result: [5 → 10 → 20 → 30 → 40 → 50]
+   head = 5, 5.next = 10, 10.prev = 5
+   Result: [5 ⇄ 10 ⇄ 20 ⇄ 30 ⇄ 40 ⇄ 50]
    Time = O(1)
 
 3. Insert(3, 25):
    Traverse to index 2 (O(n))
-   Link 20 → 25 → 30
-   Result: [5 → 10 → 20 → 25 → 30 → 40 → 50]
+   Link 20 ⇄ 25 ⇄ 30
+   Result: [5 ⇄ 10 ⇄ 20 ⇄ 25 ⇄ 30 ⇄ 40 ⇄ 50]
    Time = O(n)
 
-4. Search(40):
-   Traverse nodes until 40 is found
-   Time = O(n)
-
-5. Pop First():
-   head moves to 10, tail.next = 10
-   Result: [10 → 20 → 25 → 30 → 40 → 50]
+4. Pop First():
+   head moves to 10, 10.prev = None
+   Result: [10 ⇄ 20 ⇄ 25 ⇄ 30 ⇄ 40 ⇄ 50]
    Time = O(1)
 
-6. Pop Last():
-   Traverse until node before 50
-   tail = 40, tail.next = head
-   Result: [10 → 20 → 25 → 30 → 40]
-   Time = O(n)
-
-7. Delete all():
-   head = None, tail = None, length = 0
-   Result: []
+5. Pop Last():
+   tail moves to 40, 40.next = None
+   Result: [10 ⇄ 20 ⇄ 25 ⇄ 30 ⇄ 40]
    Time = O(1)
+
+6. Remove(25):
+   Search + unlink 25
+   Result: [10 ⇄ 20 ⇄ 30 ⇄ 40]
+   Time = O(n)
 """
 
 # ---------------------------------------------------------------
 # 📊 Summary Table (as Python dict)
 # ---------------------------------------------------------------
-csll_complexities = {
+dll_complexities = {
     "Create":          {"time": "O(1)", "space": "O(1)"},
     "Append":          {"time": "O(1)", "space": "O(1)"},
     "Prepend":         {"time": "O(1)", "space": "O(1)"},
     "Insert":          {"time": "O(n)", "space": "O(1)"},
     "Search":          {"time": "O(n)", "space": "O(1)"},
     "Traverse":        {"time": "O(n)", "space": "O(1)"},
+    "Reverse Traverse":{"time": "O(n)", "space": "O(1)"},
     "Get":             {"time": "O(n)", "space": "O(1)"},
     "Set":             {"time": "O(n)", "space": "O(1)"},
     "Pop First":       {"time": "O(1)", "space": "O(1)"},
-    "Pop Last":        {"time": "O(n)", "space": "O(1)"},
+    "Pop Last":        {"time": "O(1)", "space": "O(1)"},
+    "Pop (by index)":  {"time": "O(n)", "space": "O(1)"},
     "Remove":          {"time": "O(n)", "space": "O(1)"},
     "Delete all nodes":{"time": "O(1)", "space": "O(1)"},
 }
 
 if __name__ == "__main__":
     from pprint import pprint
-    print("Time and Space Complexity of CSLL Operations:\n")
-    pprint(csll_complexities)
+    print("Time and Space Complexity of DLL Operations:\n")
+    pprint(dll_complexities)
