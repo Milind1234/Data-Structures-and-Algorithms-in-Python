@@ -34,11 +34,64 @@ class CircularDoublyLinkedList:
     # 🔹 append(value): Inserts node at the end
     def append(self, value):
         """
-        Insert a new node at the end of the CDLL.
-        Cases:
-        1. Empty list → new node points to itself (next & prev)
-        2. Non-empty list → adjust head.prev, tail.next, and update tail
+        Purpose:
+        Insert a new node at the **beginning** of the Circular Doubly Linked List (CDLL).
+    
+        Steps:
+        1. Create a new node.
+        2. If list empty:
+             - head = tail = new_node
+             - new_node.next = new_node.prev = new_node (points to itself)
+        3. Else:
+             - new_node.next = head
+             - new_node.prev = tail
+             - head.prev = new_node
+             - tail.next = new_node
+             - head = new_node
+        4. Increase length
+    
+        🔍 Visualization:
+    
+        Case 1: Empty CDLL
+        ------------------
+        Before: head = None, tail = None
+        After prepend(100):
+    
+            [100] ◀──▶ [100]
+              ↑head
+              ↑tail
+    
+        Case 2: Non-Empty CDLL
+        ----------------------
+        Before (head=10, tail=30):
+            [10] ◀──▶ [20] ◀──▶ [30]
+             ↑head              ↑tail
+            (circular links: head.prev=30, tail.next=10)
+    
+        Prepend(100):
+            Step 1: new_node = [100]
+            Step 2: new_node.next = head   (100.next → 10)
+            Step 3: new_node.prev = tail   (100.prev → 30)
+            Step 4: head.prev = new_node   (10.prev → 100)
+            Step 5: tail.next = new_node   (30.next → 100)
+            Step 6: head = new_node        (head → 100)
+    
+        After:
+            [100] ◀──▶ [10] ◀──▶ [20] ◀──▶ [30]
+              ↑head                        ↑tail
+            (circular links: head.prev=30, tail.next=100)
+    
+        🔗 Pointer changes:
+        - new_node.next → old head (10)
+        - new_node.prev → tail (30)
+        - old head.prev → new_node (100)
+        - old tail.next → new_node (100)
+        - head → new_node (100)
+    
+        ⏱️ Time: O(1) → constant pointer updates
+        ⏱️ Space: O(1) → no extra structures
         """
+
         new_node = Node(value)        # Step 1: Create a new node
 
         # 🔹 Case 1: Empty List
