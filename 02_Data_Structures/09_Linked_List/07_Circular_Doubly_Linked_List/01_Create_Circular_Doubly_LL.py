@@ -76,7 +76,7 @@ print("One-Node CDLL -> Length:", cdll_one.length)          # 1
 #                  |       |
 #                  |_______|
 #
-#                         ↑head
+#                         ↑head 
 #                         ↑tail
 # length = 1
 
