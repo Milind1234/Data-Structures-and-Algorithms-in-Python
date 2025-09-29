@@ -1,3 +1,9 @@
+# note.py
+# ------------------------------------------------------
+# 📘 Circular Doubly Linked List (CDLL) - Notes File
+# ✅ Topic: Set Value (update node by index)
+# ------------------------------------------------------
+
 # 🔷 Node Structure
 class Node:
     def __init__(self, value):
@@ -56,55 +62,138 @@ class CircularDoublyLinkedList:
     # 3️⃣ get_node(index) → Get node by index
     # ---------------------------------------------------------------
     def get_node(self, index):
-        """
-        Purpose:
-        Retrieve the node present at a specific index (0-based).
-
-        Steps:
-        1. If index < 0 or index >= length → return None (invalid index).
-        2. If index is in the **first half** of the list:
-             - Start from head.
-             - Move forward index times.
-        3. If index is in the **second half** of the list:
-             - Start from tail.
-             - Move backward until index is reached.
-        4. Return the node’s value with its index.
-
-        🔍 Visualization:
-
-        CDLL = [10] ◀──▶ [20] ◀──▶ [30] ◀──▶ [40] ◀──▶ [50]
-
-        get_node(1):
-        - index=1 is in the first half (head → forward)
-        - Traverse: head=10 → next=20
-        - Return: "At index 1 Node 20 is present"
-
-        get_node(4):
-        - index=4 is in the second half (tail → backward)
-        - Traverse: tail=50 (index=4) → found immediately
-        - Return: "At index 4 Node 50 is present"
-
-        ⏱️ Time Complexity:
-        - Best: O(1) → index at head or tail
-        - Average/Worst: O(n/2) → half traversal from closer end
-        - Overall: O(n)
-
-        ⏱️ Space Complexity:
-        - O(1) → no extra memory used
-        """
         if index < 0 or index >= self.length:
             return None
 
-        current_node = None
         if index < self.length // 2:
-            # Closer to head → move forward
             current_node = self.head
             for _ in range(index):
                 current_node = current_node.next
         else:
-            # Closer to tail → move backward
             current_node = self.tail
             for _ in range(self.length - 1, index, -1):
                 current_node = current_node.prev
+        return current_node
 
-        return f"At index {index} Node {current_node.value} is present"
+    # ---------------------------------------------------------------
+    # 4️⃣ set_value(index, value) → update using helper (get_node)
+    # ---------------------------------------------------------------
+    def set_value(self, index, value):
+        """
+        Purpose:
+        Update the value of a node at a given index (0-based).
+        Uses the helper method get_node() to locate the node.
+
+        Steps:
+        1. Call get_node(index) → returns node if valid index, else None.
+        2. If node exists:
+             - Replace node.value with new value.
+             - Return True (successful update).
+        3. Else:
+             - Return False (invalid index).
+
+        🔍 Visualization:
+
+        Before:
+        [10] ◀──▶ [20] ◀──▶ [30] ◀──▶ [40]
+
+        set_value(2, 100):
+        → get_node(2) = node with value 30
+        → update 30 → 100
+
+        After:
+        [10] ◀──▶ [20] ◀──▶ [100] ◀──▶ [40]
+
+        ⏱️ Time Complexity:
+        - get_node(): O(n/2) → O(n)
+        - update: O(1)
+        → Overall: O(n)
+
+        ⏱️ Space Complexity:
+        - O(1)
+        """
+        node = self.get_node(index)
+        if node:
+            node.value = value
+            return True
+        return False
+
+    # -----------------------------------------------------------------------
+    # 5️⃣ set_value_direct(index, value) → update without helper
+    # -----------------------------------------------------------------------
+    def set_value_direct(self, index, value):
+        """
+        Purpose:
+        Update the value of a node at a given index (0-based),
+        without calling get_node (direct traversal).
+
+        Steps:
+        1. If index invalid (<0 or >= length) → return False.
+        2. If index is in the **first half**:
+             - Start at head, move forward index times.
+        3. Else (index in second half):
+             - Start at tail, move backward until index is reached.
+        4. Update node.value = new value.
+        5. Return True.
+
+        🔍 Visualization:
+
+        Before:
+        [10] ◀──▶ [20] ◀──▶ [100] ◀──▶ [40]
+
+        set_value_direct(3, 200):
+        → Start from tail = 40 (index=3)
+        → Directly update value 40 → 200
+
+        After:
+        [10] ◀──▶ [20] ◀──▶ [100] ◀──▶ [200]
+
+        ⏱️ Time Complexity:
+        - Traversal: O(n/2) → O(n)
+        - Update: O(1)
+        → Overall: O(n)
+
+        ⏱️ Space Complexity:
+        - O(1)
+        """
+        if index < 0 or index >= self.length:
+            return False
+
+        if index < self.length // 2:
+            temp_node = self.head
+            for _ in range(index):
+                temp_node = temp_node.next
+        else:
+            temp_node = self.tail
+            for _ in range(self.length - 1, index, -1):
+                temp_node = temp_node.prev
+        temp_node.value = value
+        return True
+
+
+# ------------------------------------------------------
+# 🧪 Example Usage
+# ------------------------------------------------------
+if __name__ == "__main__":
+    CDLL = CircularDoublyLinkedList()
+    CDLL.append(10)
+    CDLL.append(20)
+    CDLL.append(30)
+    CDLL.append(40)
+
+    print("Before:", CDLL)  
+    # Output: 10 ◀——▶ 20 ◀——▶ 30 ◀——▶ 40
+
+    # Using helper-based set_value
+    success = CDLL.set_value(2, 100)  
+    print("set_value returned:", success)  
+    # Output: True
+    print("After set_value:", CDLL)  
+    # Output: 10 ◀——▶ 20 ◀——▶ 100 ◀——▶ 40
+
+    # Using direct set_value (no helper)
+    success2 = CDLL.set_value_direct(3, 200)  
+    print("set_value_direct returned:", success2)  
+    # Output: True
+    print("After set_value_direct:", CDLL)  
+    # Output: 10 ◀——▶ 20 ◀——▶ 100 ◀——▶ 200
