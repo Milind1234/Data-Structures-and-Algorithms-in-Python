@@ -1,9 +1,3 @@
-# note.py
-# ------------------------------------------------------
-# 📘 Circular Doubly Linked List (CDLL) - Notes File
-# ✅ Topic: Get Node by Index
-# ------------------------------------------------------
-
 # 🔷 Node Structure
 class Node:
     def __init__(self, value):
@@ -114,48 +108,3 @@ class CircularDoublyLinkedList:
                 current_node = current_node.prev
 
         return f"At index {index} Node {current_node.value} is present"
-    
-
-# ---------------------------------------------------------------
-# ✅ How to Use & Test
-# ---------------------------------------------------------------
-if __name__ == "__main__":
-    CDLL = CircularDoublyLinkedList()
-    CDLL.append(10)
-    CDLL.append(20)
-    CDLL.append(30)
-    CDLL.append(40)
-    CDLL.append(50)
-
-    print("CDLL:", CDLL)
-    # Output: 10 ◀——▶ 20 ◀——▶ 30 ◀——▶ 40 ◀——▶ 50
-
-    print(CDLL.get_node(3))
-    # Output: At index 3 Node 40 is present
-
-    print(CDLL.get_node(0))
-    # Output: At index 0 Node 10 is present
-
-    print(CDLL.get_node(4))
-    # Output: At index 4 Node 50 is present
-
-
-    # ---------------------------------------------------------------
-    # 3️⃣ get_node(index) → Get node by index return only node Object
-    # ---------------------------------------------------------------
-    
-    def get_method(self , index):
-        if index < 0 or index >= self.length:
-            return None
-        current_node = None
-        if index < self.length // 2:
-            # Closer to head → move forward
-            current_node = self.head
-            for _ in range(index):
-                current_node = current_node.next
-        else:
-            # Closer to tail → move backward
-            current_node = self.tail
-            for _ in range(self.length - 1, index, -1):
-                current_node = current_node.prev
-        return current_node
