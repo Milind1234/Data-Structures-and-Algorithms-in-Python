@@ -61,6 +61,49 @@ class CircularDoublyLinkedList:
     # ---------------------------------------------------------------
     # 3️⃣ search_by_val(target) → search by value
     # ---------------------------------------------------------------
+    # _______________________________________________________________________________________________________________________
+    # 📘 Visual Example — search_by_val(target)
+    #
+    # Purpose:
+    # Find the index (0-based) of the first node with value == target.
+    #
+    # Behavior:
+    # - Traverse forward from head, compare each node value.
+    # - Stop and return index on match.
+    # - If full circle completed without match, return "Targeted Value Not Found".
+    # _______________________________________________________________________________________________________________________
+
+    # Case: Search when list is empty
+    # ------------------------------
+    # Before:
+    # None
+    #
+    # search_by_val(10) -> "List is empty" or "Targeted Value Not Found"
+    #
+    # _______________________________________________________________________________________________________________________
+
+    # Case: Search value present
+    # --------------------------
+    # CDLL = [10] ◀——▶ [20] ◀——▶ [30] ◀——▶ [40]
+    # search_by_val(30):
+    # Step 1: Compare 10 (idx 0) → no
+    # Step 2: Compare 20 (idx 1) → no
+    # Step 3: Compare 30 (idx 2) → yes → return 2
+    #
+    # _______________________________________________________________________________________________________________________
+
+    # Case: Search value absent
+    # -------------------------
+    # CDLL = [10] ◀——▶ [20] ◀——▶ [30] ◀——▶ [40]
+    # search_by_val(99):
+    # Compare 10, 20, 30, 40 → full circle → return "Targeted Value Not Found"
+    #
+    # Complexity:
+    # - Time: O(n)
+    # - Space: O(1)
+    # _______________________________________________________________________________________________________________________
+
+    
     def search_by_val(self, target):
         """
         Purpose:
@@ -109,6 +152,53 @@ class CircularDoublyLinkedList:
     # ---------------------------------------------------------------
     # 4️⃣ search_by_node(node_no) → search by index
     # ---------------------------------------------------------------
+    
+    # _______________________________________________________________________________________________________________________
+    # 📘 Visual Example — search_by_node(node_no)
+    #
+    # Purpose:
+    # Return the value at index node_no (0-based).
+    #
+    # Behavior:
+    # - If list empty → "List is empty"
+    # - If index invalid (<0 or >= length) → "Index out of range"
+    # - Otherwise traverse (optimized: from head or tail depending on index)
+    # _______________________________________________________________________________________________________________________
+
+    # Case: Index out of range
+    # ------------------------
+    # CDLL = [10] ◀——▶ [20] ◀——▶ [30]
+    # get index 5 -> "Index out of range"
+    #
+    # _______________________________________________________________________________________________________________________
+
+    # Case: Get head (index 0)
+    # ------------------------
+    # CDLL = [10] ◀——▶ [20] ◀——▶ [30]
+    # search_by_node(0) -> returns 10
+    #
+    # _______________________________________________________________________________________________________________________
+
+    # Case: Get tail (index length-1)
+    # -------------------------------
+    # CDLL = [10] ◀——▶ [20] ◀——▶ [30]
+    # search_by_node(2) -> returns 30
+    #
+    # _______________________________________________________________________________________________________________________
+
+    # Case: Get middle (use optimized direction)
+    # ------------------------------------------
+    # CDLL = [10] ◀——▶ [20] ◀——▶ [30] ◀——▶ [40] ◀——▶ [50]
+    # search_by_node(3):
+    # - index 3 >= length//2 (5//2=2) → start from tail
+    # - tail (50) → prev → 40 → return 40
+    #
+    # Complexity:
+    # - Time: O(k) up to O(n) worst-case (optimized average O(n/2))
+    # - Space: O(1)
+    # _______________________________________________________________________________________________________________________
+
+
     def search_by_node(self, node_no):
         """
         Purpose:
