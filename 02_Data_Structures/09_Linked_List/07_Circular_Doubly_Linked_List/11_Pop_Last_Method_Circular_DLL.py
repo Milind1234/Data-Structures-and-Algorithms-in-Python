@@ -1,7 +1,7 @@
 # note.py
 # ------------------------------------------------------
 # 📘 Circular Doubly Linked List (CDLL) - Notes File
-# ✅ Topic: Append | __str__ | Pop_first
+# ✅ Topic: Append | __str__ | Pop_first | Pop_last
 # ------------------------------------------------------
 
 # 🔷 Node Structure
@@ -66,39 +66,6 @@ class CircularDoublyLinkedList:
     # 3️⃣ Pop_first() → Remove first node
     # ---------------------------------------------------------------
     def Pop_first(self):
-        """
-        Purpose:
-        Remove and return the **first node** (head) of the CDLL.
-
-        Steps:
-        1. If list is empty → return None.
-        2. Save popped_node = head.
-        3. If only 1 node:
-             - head = tail = None
-        4. Else:
-             - head = head.next
-             - popped_node.next = popped_node.prev = None (isolate node)
-             - head.prev = tail
-             - tail.next = head
-        5. Decrease length.
-        6. Return popped_node.
-
-        🔍 Visualization:
-
-        Before:
-        [10] ◀──▶ [20] ◀──▶ [30]
-         ↑head              ↑tail
-
-        Pop_first():
-        popped_node = [10]
-        After:
-        [20] ◀──▶ [30]
-         ↑head     ↑tail
-        (circular links preserved: head.prev = tail, tail.next = head)
-
-        ⏱️ Time Complexity: O(1)
-        ⏱️ Space Complexity: O(1)
-        """
         if self.length == 0:
             return None
 
@@ -112,6 +79,59 @@ class CircularDoublyLinkedList:
             popped_node.next = None
             self.head.prev = self.tail
             self.tail.next = self.head
+        self.length -= 1
+        return popped_node
+
+    # ---------------------------------------------------------------
+    # 4️⃣ Pop_last() → Remove last node
+    # ---------------------------------------------------------------
+    def Pop_last(self):
+        """
+        Purpose:
+        Remove and return the **last node** (tail) of the CDLL.
+
+        Steps:
+        1. If list is empty → return None.
+        2. Save popped_node = tail.
+        3. If only 1 node:
+             - head = tail = None
+        4. Else:
+             - tail = tail.prev
+             - popped_node.next = popped_node.prev = None (isolate node)
+             - tail.next = head
+             - head.prev = tail
+        5. Decrease length.
+        6. Return popped_node.
+
+        🔍 Visualization:
+
+        Before:
+        [10] ◀──▶ [20] ◀──▶ [30] ◀──▶ [40]
+         ↑head                        ↑tail
+
+        Pop_last():
+        popped_node = [40]
+        After:
+        [10] ◀──▶ [20] ◀──▶ [30]
+         ↑head              ↑new tail
+        (circular links preserved: head.prev = tail, tail.next = head)
+
+        ⏱️ Time Complexity: O(1)
+        ⏱️ Space Complexity: O(1)
+        """
+        if self.length == 0:
+            return None
+
+        popped_node = self.tail
+        if self.length == 1:  # Only one node
+            self.head = None
+            self.tail = None
+        else:
+            self.tail = self.tail.prev
+            popped_node.next = None
+            popped_node.prev = None
+            self.tail.next = self.head
+            self.head.prev = self.tail
         self.length -= 1
         return popped_node
 
@@ -130,45 +150,50 @@ if __name__ == "__main__":
     print("Initial CDLL:", CDLL)
     # Output: 10 ◀——▶ 20 ◀——▶ 30 ◀——▶ 40 ◀——▶ 50
 
-    print("Popped Node:", CDLL.Pop_first())
-    # Output: Popped Node: 10
-
-    print("After popping First Node:", CDLL)
+    print("Popped First Node:", CDLL.Pop_first())
+    # Output: Popped First Node: 10
+    print("After Pop_first:", CDLL)
     # Output: 20 ◀——▶ 30 ◀——▶ 40 ◀——▶ 50
 
+    print("Popped Last Node:", CDLL.Pop_last())
+    # Output: Popped Last Node: 50
+    print("After Pop_last:", CDLL)
+    # Output: 20 ◀——▶ 30 ◀——▶ 40
+
+
 # _______________________________________________________________________________________________________________________
-# 📘 Visual Example (Pop_first on Empty List)
+# 📘 Visual Example (Pop_last on Empty List)
 #             Before:
 #             None
 #
-#             After Pop_first():
+#             After Pop_last():
 #             None
 #             (List remains empty, return None)
 # _______________________________________________________________________________________________________________________
-# 📘 Visual Example (Pop_first on Single-Node List)
+# 📘 Visual Example (Pop_last on Single-Node List)
 #             Before:
 #             [10]
 #              ↑
 #        head & tail
 #
-#             After Pop_first():
+#             After Pop_last():
 #             None
 #             head = None, tail = None
 #             (List becomes empty)
 # _______________________________________________________________________________________________________________________
-# 📘 Visual Example (Pop_first on Multi-Node List)
+# 📘 Visual Example (Pop_last on Multi-Node List)
 #             Before:
 #             [10] ◀——▶ [20] ◀——▶ [30] ◀——▶ [40]
 #              ↑                               ↑
 #             head                            tail
 #
-#             After Pop_first():
-#             [20] ◀——▶ [30] ◀——▶ [40]
+#             After Pop_last():
+#             [10] ◀——▶ [20] ◀——▶ [30]
 #              ↑                       ↑
-#            new head                 tail
+#             head                   new tail
 #
 # Note:
-# - popped_node = 10 (isolated from list)
-# - new head = 20
-# - head.prev = tail (40), tail.next = head (20) → circular links preserved
+# - popped_node = 40 (isolated from list)
+# - new tail = 30
+# - head.prev = tail (30), tail.next = head (10) → circular links preserved
 # _______________________________________________________________________________________________________________________
