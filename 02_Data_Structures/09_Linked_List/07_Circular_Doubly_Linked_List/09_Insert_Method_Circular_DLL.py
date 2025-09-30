@@ -258,3 +258,60 @@ if __name__ == "__main__":
     CDLL.insert_direct(7, 500)
     print("After insert 500 at index 7:", CDLL)
     # depending on current length this will insert and print final list
+
+# _______________________________________________________________________________________________________________________
+# 📘 Visual Example (Insert on Empty List)
+#             Before:
+#             None
+#
+#             After insert(0, 10):
+#             [10]
+#              ↑
+#        head & tail (points to itself both ways)
+# _______________________________________________________________________________________________________________________
+# 📘 Visual Example (Insert at Beginning of Non-Empty List)
+#             Before:
+#             [10] ◀——▶ [20] ◀——▶ [30]
+#              ↑                  ↑
+#             head               tail
+#
+#             After insert(0, 5):
+#             [5] ◀——▶ [10] ◀——▶ [20] ◀——▶ [30]
+#              ↑                                ↑
+#           new head                           tail
+#
+# Note:
+# - new head = 5
+# - head.prev = tail (30), tail.next = head (5) → circular links maintained
+# _______________________________________________________________________________________________________________________
+# 📘 Visual Example (Insert at End of List)
+#             Before:
+#             [10] ◀——▶ [20] ◀——▶ [30]
+#              ↑                  ↑
+#             head               tail
+#
+#             After insert(3, 40):
+#             [10] ◀——▶ [20] ◀——▶ [30] ◀——▶ [40]
+#              ↑                               ↑
+#             head                            new tail
+#
+# Note:
+# - new tail = 40
+# - head.prev = 40, tail.next = 10 → circular links maintained
+# _______________________________________________________________________________________________________________________
+# 📘 Visual Example (Insert in Middle of List)
+#             Before:
+#             [10] ◀——▶ [20] ◀——▶ [30] ◀——▶ [40]
+#              ↑                                ↑
+#             head                             tail
+#
+#             After insert(2, 99):
+#             [10] ◀——▶ [20] ◀——▶ [99] ◀——▶ [30] ◀——▶ [40]
+#              ↑                                        ↑
+#             head                                     tail
+#
+# Note:
+# - 99 inserted between 20 and 30
+# - Links updated: 20.next → 99, 30.prev → 99
+# - Circularity preserved (head.prev = tail, tail.next = head)
+# _______________________________________________________________________________________________________________________
