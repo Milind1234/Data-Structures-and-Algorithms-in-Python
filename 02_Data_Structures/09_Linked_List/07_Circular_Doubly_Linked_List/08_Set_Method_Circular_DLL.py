@@ -1,4 +1,3 @@
-# note.py
 # ------------------------------------------------------
 # 📘 Circular Doubly Linked List (CDLL) - Notes File
 # ✅ Topic: Set Value (update node by index)
