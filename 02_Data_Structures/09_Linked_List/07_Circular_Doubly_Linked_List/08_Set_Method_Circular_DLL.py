@@ -196,3 +196,88 @@ if __name__ == "__main__":
     # Output: True
     print("After set_value_direct:", CDLL)  
     # Output: 10 ◀——▶ 20 ◀——▶ 100 ◀——▶ 200
+
+# _______________________________________________________________________________________________________________________
+# 📘 Visual Example — set_value(index, value) & set_value_direct(index, value)
+#
+# Purpose:
+# Update the `value` stored in the node at a given index.
+# Two implementations:
+# - set_value uses helper get_node(index) (reuses optimized traversal)
+# - set_value_direct performs traversal inside the function (no helper call)
+#
+# Behavior cases covered:
+# - invalid index
+# - set at head (index 0)
+# - set at tail (index = length-1)
+# - set in middle
+# _______________________________________________________________________________________________________________________
+
+# Case: Invalid Index
+# -------------------
+# Before:
+# [10] ◀——▶ [20] ◀——▶ [30]
+#  ↑head              ↑tail
+#
+# set_value(5, 100)  or set_value_direct(5, 100)
+# - index 5 >= length (3) → return False / "Index out of range" (depending on API)
+#
+# _______________________________________________________________________________________________________________________
+
+# Case: Set Head (index 0)
+# ------------------------
+# Before:
+# [10] ◀——▶ [20] ◀——▶ [30]
+#  ↑head              ↑tail
+#
+# set_value(0, 100):
+# - get_node(0) returns head ([10])
+# - head.value = 100
+#
+# After:
+# [100] ◀——▶ [20] ◀——▶ [30]
+#  ↑head              ↑tail
+#
+# Using set_value_direct(0, 100) does the same but traverses inside the function.
+#
+# _______________________________________________________________________________________________________________________
+
+# Case: Set Tail (index = length - 1)
+# -----------------------------------
+# Before:
+# [10] ◀——▶ [20] ◀——▶ [30]
+#  ↑head              ↑tail
+#
+# set_value(2, 999):
+# - get_node(2) optimized to return tail ([30])
+# - tail.value = 999
+#
+# After:
+# [10] ◀——▶ [20] ◀——▶ [999]
+#  ↑head              ↑tail
+#
+# _______________________________________________________________________________________________________________________
+
+# Case: Set Middle
+# ----------------
+# Before:
+# [10] ◀——▶ [20] ◀——▶ [30] ◀——▶ [40]
+#  ↑head                         ↑tail
+#
+# set_value(2, 333):
+# - get_node(2) returns node [30]
+# - update value 30 → 333
+#
+# After:
+# [10] ◀——▶ [20] ◀——▶ [333] ◀——▶ [40]
+#  ↑head                         ↑tail
+#
+# set_value_direct(2, 333) behaves the same but uses direct traversal.
+#
+# _______________________________________________________________________________________________________________________
+# Pointer changes: NONE — only node.value is changed; next/prev pointers unchanged.
+#
+# Complexity:
+# - Time: O(n) (helper-based uses get_node so O(n) worst-case)
+# - Space: O(1)
+# _______________________________________________________________________________________________________________________
