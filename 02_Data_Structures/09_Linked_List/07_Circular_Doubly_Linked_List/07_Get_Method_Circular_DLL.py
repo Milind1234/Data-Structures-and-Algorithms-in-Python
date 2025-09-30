@@ -159,3 +159,91 @@ if __name__ == "__main__":
             for _ in range(self.length - 1, index, -1):
                 current_node = current_node.prev
         return current_node
+    
+# _______________________________________________________________________________________________________________________
+# 📘 Visual Example — get_node(index) / get_value(index)
+#
+# Purpose:
+# Retrieve a node (or its value) at a given 0-based index.
+# The helper optimizes traversal by starting from head if index is in
+# the first half, or from tail if index is in the second half.
+#
+# Behavior cases covered:
+# - index out of range
+# - index = 0 (head)
+# - index = length - 1 (tail)
+# - index in middle (closer to head)
+# - index in middle (closer to tail)
+# _______________________________________________________________________________________________________________________
+
+# Case: Index Out of Range
+# ------------------------
+# Before:
+# [10] ◀——▶ [20] ◀——▶ [30]
+#  ↑head              ↑tail
+#
+# get_node(5) or get_value(5) -> index 5 >= length (3)
+# Return: None (for get_node) or None (for get_value) / or "Index out of range" depending on API
+#
+# _______________________________________________________________________________________________________________________
+
+# Case: Get Head (index 0)
+# ------------------------
+# Before:
+# [10] ◀——▶ [20] ◀——▶ [30]
+#  ↑head              ↑tail
+#
+# get_node(0):
+# - index < length//2 → start at head
+# - 0 steps needed → return head node ([10])
+#
+# get_value(0) -> 10
+#
+# _______________________________________________________________________________________________________________________
+
+# Case: Get Tail (index = length - 1)
+# -----------------------------------
+# Before:
+# [10] ◀——▶ [20] ◀——▶ [30]
+#  ↑head              ↑tail
+#
+# get_node(2) (length=3):
+# - index >= length//2 → start at tail
+# - tail is already index 2 → return tail node ([30])
+#
+# get_value(2) -> 30
+#
+# _______________________________________________________________________________________________________________________
+
+# Case: Get Middle (closer to head)
+# ---------------------------------
+# Before:
+# [10] ◀——▶ [20] ◀——▶ [30] ◀——▶ [40] ◀——▶ [50]
+#  ↑head                                 ↑tail
+#
+# get_node(1): index 1 < length//2 (5//2=2) → start at head
+# - head (10) → next → 20 → return node [20]
+#
+# get_value(1) -> 20
+#
+# _______________________________________________________________________________________________________________________
+
+# Case: Get Middle (closer to tail)
+# ---------------------------------
+# Before:
+# [10] ◀——▶ [20] ◀——▶ [30] ◀——▶ [40] ◀——▶ [50]
+#  ↑head                                 ↑tail
+#
+# get_node(4): index 4 >= length//2 → start at tail
+# - tail (50) → already index 4 → return node [50]
+#
+# get_node(3):
+# - start at tail (50) → prev → 40 → return node [40]
+#
+# get_value(3) -> 40
+#
+# _______________________________________________________________________________________________________________________
+# Notes:
+# - Time complexity: O(n) worst-case, O(n/2) average due to two-way traversal optimization.
+# - Space complexity: O(1).
+# _______________________________________________________________________________________________________________________
