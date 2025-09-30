@@ -146,3 +146,53 @@ CDLL.reverse_traverse()
 # 30
 # 20
 # 10
+
+# _______________________________________________________________________________________________________________________
+# 📘 Visual Example — reverse_traverse()
+#
+# Purpose:
+# Visit every node in reverse direction starting from tail and process/print values.
+#
+# Cases covered:
+# - empty list
+# - single-node list
+# - multi-node list
+# _______________________________________________________________________________________________________________________
+
+# Case: Reverse Traverse on Empty List
+# ------------------------------------
+# Before:
+# None
+#
+# reverse_traverse() -> prints nothing (or indicates empty)
+#
+# _______________________________________________________________________________________________________________________
+
+# Case: Reverse Traverse on Single-Node List
+# ------------------------------------------
+# Before:
+# [10]
+#  ↑head & tail
+#
+# reverse_traverse():
+# → prints 10
+#
+# _______________________________________________________________________________________________________________________
+
+# Case: Reverse Traverse on Multi-Node List
+# -----------------------------------------
+# Before:
+# [10] ◀——▶ [20] ◀——▶ [30] ◀——▶ [40]
+#  ↑head                          ↑tail
+#
+# reverse_traverse():
+# → prints 40
+# → prints 30
+# → prints 20
+# → prints 10
+# (stop when current becomes tail again)
+#
+# Complexity:
+# - Time: O(n)
+# - Space: O(1)
+# _______________________________________________________________________________________________________________________
