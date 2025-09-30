@@ -170,3 +170,64 @@ print("Head.prev:", CDLL.head.prev.value)
 print("Tail:", CDLL.tail.value)
 print("Tail.prev:", CDLL.tail.prev.value)
 print("Tail.next:", CDLL.tail.next.value)
+
+# _______________________________________________________________________________________________________________________
+# 📘 Visual Example — prepend(value)
+#
+# Purpose:
+# Insert a new node at the **beginning** (head) of the CDLL.
+#
+# Cases covered:
+# - empty list
+# - single-node list
+# - multi-node list
+# _______________________________________________________________________________________________________________________
+
+# Case: Prepend on Empty List
+# ---------------------------
+# Before:
+# None
+#
+# After prepend(10):
+# [10]
+#  ↑
+# head & tail (points to itself both ways)
+#
+# _______________________________________________________________________________________________________________________
+
+# Case: Prepend on Single-Node List
+# ---------------------------------
+# Before:
+# [10]
+#  ↑head & tail
+#
+# After prepend(5):
+# [5] ◀——▶ [10]
+#  ↑head     ↑tail
+#
+# Note:
+# - new head = 5
+# - head.prev = tail (10), tail.next = head (5) → circular links preserved
+#
+# _______________________________________________________________________________________________________________________
+
+# Case: Prepend on Multi-Node List
+# --------------------------------
+# Before:
+# [10] ◀——▶ [20] ◀——▶ [30]
+#  ↑head              ↑tail
+#
+# After prepend(5):
+# [5] ◀——▶ [10] ◀——▶ [20] ◀——▶ [30]
+#  ↑head                         ↑tail
+#
+# Pointer changes:
+# - new_node.next → old head (10)
+# - new_node.prev → tail (30)
+# - old head.prev → new_node (5)
+# - tail.next → new_node (5)
+#
+# Complexity:
+# - Time: O(1)
+# - Space: O(1)
+# _______________________________________________________________________________________________________________________
