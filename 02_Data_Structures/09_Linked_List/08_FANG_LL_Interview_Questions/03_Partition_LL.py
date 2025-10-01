@@ -106,6 +106,34 @@ if __name__ == "__main__":
     # Expected: 3 -> 2 -> 1 -> 5 -> 8 -> 5 -> 10
 
 
+
+# ---------------------------------------------------------------
+# 📊 Complexity Analysis
+# ---------------------------------------------------------------
+# Time Complexity:
+# - O(n) → one pass over all nodes
+#
+# Space Complexity:
+# - O(1) → uses only a few extra pointers (no extra data structures)
+#
+# ---------------------------------------------------------------
+# 📘 Visual Example
+# ---------------------------------------------------------------
+# Input:   3 -> 5 -> 8 -> 5 -> 10 -> 2 -> 1   (x = 5)
+#
+# Step 1: Partition into two lists:
+#   before: 3 -> 2 -> 1
+#   after:  5 -> 8 -> 5 -> 10
+#
+# Step 2: Merge them:
+#   before + after = 3 -> 2 -> 1 -> 5 -> 8 -> 5 -> 10
+#
+# Final Output:
+#   3 -> 2 -> 1 -> 5 -> 8 -> 5 -> 10
+#
+# ✅ Nodes less than 5 appear first, order preserved.
+# ✅ Nodes greater or equal to 5 appear later, order preserved.
+
 # ---------------------------------------------------------------
 # 📖 Iteration-wise Dry Run (partition(5))
 # ---------------------------------------------------------------
