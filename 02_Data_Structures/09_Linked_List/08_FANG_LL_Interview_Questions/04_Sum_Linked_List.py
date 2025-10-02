@@ -144,3 +144,60 @@ if __name__ == "__main__":
 
     result = sum_lists(l1, l2)
     print("Sum:", result)  # 2 -> 1 -> 9  (912)
+
+
+    """ Example Walkthrough:
+    --------------------
+    Input:
+      l1 = 7 → 1 → 6   # represents number 617 (reverse order)
+      l2 = 5 → 9 → 2   # represents number 295 (reverse order)
+
+    Expected Output:
+      2 → 1 → 9        # represents number 912
+
+    ---- Step-by-Step Execution ----
+
+    Step 1: Initialization
+      p1 = 7, p2 = 5, carry = 0
+      result = []
+
+    Step 2: First Iteration
+      val1 = 7, val2 = 5
+      total = 7 + 5 + 0 = 12
+      carry = 12 // 10 = 1
+      digit = 12 % 10 = 2
+      Append → result = [2]
+      Move p1 → 1, p2 → 9
+
+    Step 3: Second Iteration
+      val1 = 1, val2 = 9
+      total = 1 + 9 + 1(carry) = 11
+      carry = 11 // 10 = 1
+      digit = 11 % 10 = 1
+      Append → result = [2 → 1]
+      Move p1 → 6, p2 → 2
+
+    Step 4: Third Iteration
+      val1 = 6, val2 = 2
+      total = 6 + 2 + 1(carry) = 9
+      carry = 0
+      digit = 9
+      Append → result = [2 → 1 → 9]
+      Move p1 → None, p2 → None
+
+    Step 5: Fourth Iteration
+      Both lists exhausted, carry = 0 → loop ends.
+
+    Step 6: Return
+      result = 2 → 1 → 9 (represents 912)
+
+
+    ---- Visualization Table ----
+    Iter | p1.val | p2.val | carry(in) | total | digit | carry(out) | Result
+    -----|--------|--------|-----------|-------|-------|------------|-------------
+      1  |   7    |   5    |    0      |  12   |   2   |     1      | [2]
+      2  |   1    |   9    |    1      |  11   |   1   |     1      | [2 → 1]
+      3  |   6    |   2    |    1      |   9   |   9   |     0      | [2 → 1 → 9]
+      4  |  None  |  None  |    0      |   -   |   -   |     -      | Done
+    """
+    
