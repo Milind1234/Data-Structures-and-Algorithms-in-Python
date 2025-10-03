@@ -21,7 +21,13 @@ class Stack:
     # 1️⃣ is_empty() → Check if stack has no elements
     # -----------------------------------------------------------
     def is_empty(self):
-        """Return True if stack is empty, else False (O(1))."""
+        """
+        Purpose:
+        Return True if stack is empty, else False.
+
+        ⏱️ Time Complexity: O(1)
+        💾 Space Complexity: O(1)
+        """
         return len(self.items) == 0
 
     # -----------------------------------------------------------
@@ -29,8 +35,12 @@ class Stack:
     # -----------------------------------------------------------
     def __str__(self):
         """
+        Purpose:
         Print stack in vertical format with the top element first.
         If empty → return "Stack is Empty".
+
+        ⏱️ Time Complexity: O(n) → reversing and joining list of size n
+        💾 Space Complexity: O(n) → temporary list of string values
         """
         if self.is_empty():
             return "Stack is Empty"
@@ -41,7 +51,13 @@ class Stack:
     # 3️⃣ push(element) → Insert element at the top of stack
     # -----------------------------------------------------------
     def push(self, element):
-        """Add element at the top of stack (end of list). O(1)."""
+        """
+        Purpose:
+        Add a new element to the top of the stack.
+
+        ⏱️ Time Complexity: O(1) (amortized, list append)
+        💾 Space Complexity: O(1) extra per element
+        """
         return self.items.append(element)
 
     # -----------------------------------------------------------
@@ -49,9 +65,12 @@ class Stack:
     # -----------------------------------------------------------
     def pop(self):
         """
+        Purpose:
         Remove the last inserted element (top of stack).
         If empty → return message instead of error.
-        ⏱️ O(1)
+
+        ⏱️ Time Complexity: O(1) (list pop from end)
+        💾 Space Complexity: O(1)
         """
         if self.is_empty():
             return "Stack is Empty"
@@ -113,21 +132,28 @@ if __name__ == "__main__":
 
 🔹 push():
 - Insert element at top (end of list).
-- Uses list.append() → O(1).
+- Uses list.append().
+- ⏱️ Time Complexity: O(1) amortized
+- 💾 Space Complexity: O(1) per push
 
 🔹 pop():
-- Removes and returns top element (end of list).
-- Uses list.pop() → O(1).
-- If stack empty → handle gracefully.
+- Removes and returns top element.
+- Uses list.pop() from end.
+- ⏱️ Time Complexity: O(1)
+- 💾 Space Complexity: O(1)
 
 🔹 is_empty():
-- Returns True if no elements.
-- O(1) using len().
+- Checks if stack has no elements.
+- Uses len().
+- ⏱️ Time Complexity: O(1)
+- 💾 Space Complexity: O(1)
 
 🔹 __str__():
-- Pretty vertical display.
+- Pretty vertical display of stack.
 - Top element printed first.
 - If empty → "Stack is Empty".
+- ⏱️ Time Complexity: O(n) (for n elements)
+- 💾 Space Complexity: O(n) (temporary string list)
 
 ---------------------------------------------------------
 🔹 Dry Run:
@@ -146,7 +172,8 @@ Stack after pop:
 
 ---------------------------------------------------------
 ✅ SUMMARY:
-- Stack with push/pop is now functional.
-- Both operations are O(1).
-- __str__ helps visualize stack top-down.
+- Stack now supports push, pop, is_empty, and visual printing.
+- Push & pop are O(1).
+- __str__ is O(n) but only for visualization/debugging.
+- Space grows as O(n) with number of elements.
 """
