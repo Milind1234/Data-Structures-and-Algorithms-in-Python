@@ -67,11 +67,13 @@ class Stack:
         """
         Purpose:
         Return the element at the top of the stack without removing it.
-        If stack empty → raises IndexError in Python list.
+        If empty → return "Stack is Empty".
 
         ⏱️ Time Complexity: O(1)
         💾 Space Complexity: O(1)
         """
+        if self.is_empty():
+            return "Stack is empty"
         return self.items[-1]
 
 
