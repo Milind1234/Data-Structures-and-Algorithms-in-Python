@@ -29,12 +29,12 @@ Think of a stack like a vertical pile of objects:
 4. 🌐 Browser Back Button  
    Suppose visit order: Udemy → LinkedIn → Gmail → AppMiller  
    Stack holds pages in this order:
-       [ AppMiller ]  ← top
-       [ Gmail     ]
+   
+       [ Gmail     ]  ← top
        [ LinkedIn  ]
-       [ Udemy     ]
+       [ Google     ]
 
-   Clicking back pops → AppMiller → Gmail → LinkedIn → Udemy.
+   Clicking back pops → Gmail → LinkedIn → Google .
 
 ---------------------------------------------------------
 🔹 KEY CHARACTERISTICS & PROPERTIES
@@ -43,13 +43,16 @@ Think of a stack like a vertical pile of objects:
 - Implementation choices:
   - **Array / fixed-size** stack (capacity needed).
   - **Linked-list** stack (dynamic growth).
+  
 - Time complexity (typical):
   - `push`, `pop`, `peek` → O(1)
   - `isEmpty`, `size` → O(1)
+  
 - Additional operations:
   - `isFull()` (for array-based).
   - `clear()` (reset stack).
   - Advanced variations: min-stack (O(1) min), two stacks in one array, stack using queues, etc.
+  
 - Uses in computing:
   - Function call stack & recursion.
   - Undo/redo in editors.
@@ -117,14 +120,6 @@ pop():
     → removes 15
     [ 10 ]  ← top
     [  5 ]
-
----------------------------------------------------------
-🔹 EXTRA INSIGHTS (from GFG, Wikipedia, Programiz, Tutorialspoint)
----------------------------------------------------------
-- GeeksforGeeks: Many stack problems → balanced parentheses, next greater element, infix→postfix, min-stack, two stacks in one array.
-- Wikipedia: Hardware implementation uses a **stack pointer** pointing to the top.
-- Programiz: Easiest Python stack uses a list (`append`, `pop`).
-- Tutorialspoint: Step-by-step algorithms for push/pop and underflow/overflow handling.
 
 ---------------------------------------------------------
 ✅ SUMMARY
