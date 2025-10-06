@@ -7,7 +7,7 @@
 """
 📌 INTRODUCTION
 
-In this lecture, we’ll implement a **Queue** using Python’s built-in **list**,
+In this notes, we’ll implement a **Queue** using Python’s built-in **list**,
 without setting a maximum capacity.
 
 This queue will follow the **FIFO (First In, First Out)** principle:
