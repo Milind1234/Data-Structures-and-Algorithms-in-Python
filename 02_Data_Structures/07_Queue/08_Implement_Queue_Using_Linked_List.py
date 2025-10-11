@@ -108,7 +108,11 @@ class Queue:
 
         ⏱️ O(1) | 💾 O(1)
         """
-        return self.linkedlist.head is None
+        if self.linkedlist.head == None:
+            return True
+        else:
+            return False
+        
 
     # -----------------------------------------------------------
     # 2️⃣ enqueue(value)
