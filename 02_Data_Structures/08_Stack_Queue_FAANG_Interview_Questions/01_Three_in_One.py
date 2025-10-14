@@ -61,14 +61,14 @@ class MultiStack:
         return self.sizes[stacknum] == self.stacksize
 
     # ----------------------------
-    # isEmpty() — simple helper checks
+    # 2️⃣ isEmpty() — simple helper checks
     # ----------------------------
     def isEmpty(self, stacknum):
         """Return True if stack `stacknum` is empty."""
         return self.sizes[stacknum] == 0
 
    # -----------------------------------------------------------
-    # 2️⃣ indexOfTop() — find where the top element lives
+    # 3️⃣ indexOfTop() — find where the top element lives
     # -----------------------------------------------------------
     def indexOfTop(self, stacknum):
         """
@@ -115,7 +115,7 @@ class MultiStack:
         return offset + self.sizes[stacknum] - 1
 
     # -----------------------------------------------------------
-    # 3️⃣ PUSH METHOD → Insert new value at top
+    # 4️⃣ PUSH METHOD → Insert new value at top
     # -----------------------------------------------------------
     def push(self, item, stacknum):
         """
@@ -173,7 +173,7 @@ class MultiStack:
         return f"Pushed {item} to stack {stacknum}"
 
     # -----------------------------------------------------------
-    # 4️⃣ POP METHOD → Remove and return top element
+    # 5️⃣ POP METHOD → Remove and return top element
     # -----------------------------------------------------------
     def pop(self, stacknum):
         """
@@ -219,7 +219,7 @@ class MultiStack:
         return value
 
     # -----------------------------------------------------------
-    # 5️⃣ PEEK METHOD → Look at top without removing
+    # 6️⃣ PEEK METHOD → Look at top without removing
     # -----------------------------------------------------------
     def peek(self, stacknum):
         """
