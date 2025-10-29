@@ -76,7 +76,7 @@ if __name__ == "__main__":
 
     examples = [4, 12, 112, 1234, 10000, 0, 5.0]
     for num in examples:
-        print(f"sumOfDigits({num}) = {sumOfDigits(num)}")
+        print(f"sumOfDigits ({num}) = {sumOfDigits(num)}")
 
     # ❌ Uncomment these to see validation errors
     # print(sumOfDigits(-112))   # AssertionError
