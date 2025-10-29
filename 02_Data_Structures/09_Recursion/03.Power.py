@@ -235,11 +235,3 @@ A4: power(4, -1) = 0.25
 # ============================================================
 # ✅ End of note.py — Power Function (Recursion)
 # ============================================================
-"""
-If you want, next I can:
- - Add a unit test file (unittest) that tests many cases using your function.
- - Create a separate file implementing fast exponentiation (O(log n)) for comparison (kept separate).
- - Produce a short slide or printable PDF summarizing this lecture.
-
-Tell me which you want next — I will keep using your function & style.
-"""
