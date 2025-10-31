@@ -62,11 +62,11 @@ if __name__ == "__main__":
     words4 = []
     words5 = ['hello']
 
-    print(f"{words1} → {capitalizeWords(words1)}")
-    print(f"{words2} → {capitalizeWords(words2)}")
-    print(f"{words3} → {capitalizeWords(words3)}")
-    print(f"{words4} → {capitalizeWords(words4)}")
-    print(f"{words5} → {capitalizeWords(words5)}")
+    print(f"{words1}             →     {capitalizeWords(words1)}")
+    print(f"{words2}                              →     {capitalizeWords(words2)}")
+    print(f"{words3}      →     {capitalizeWords(words3)}")
+    print(f"{words4}                                               →     {capitalizeWords(words4)}")
+    print(f"{words5}                                        →     {capitalizeWords(words5)}")
 
 
 # ============================================================
