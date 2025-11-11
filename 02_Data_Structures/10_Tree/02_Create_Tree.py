@@ -118,7 +118,7 @@ class TreeNode:
            Apple Juice
            Orange Juice
         """
-        ret = " " * level + str(self.data) + "\n"
+        ret = "   " * level + str(self.data) + "\n"
         for child in self.children:
             ret += child.str(level + 1)
         return ret
