@@ -83,13 +83,6 @@ class TreeNode:
         self.leftChild = None
         self.rightChild = None
 
-    def __str__(self):
-        """Return node info for debugging."""
-        left = self.leftChild.data if self.leftChild else None
-        right = self.rightChild.data if self.rightChild else None
-        return f"[ Data: {self.data}, Left: {left}, Right: {right} ]"
-
-
 # -----------------------------
 # TREE CREATION
 # -----------------------------
