@@ -152,12 +152,12 @@ preOrderTraversal(newBT)
 Expected Output:
 ----------------
 Drinks
-Hot
-Tea
-Coffee
-Cold
-Cola
-Fanta
+  Hot
+    Tea
+    Coffee
+  Cold
+    Cola
+    Fanta
 
 📘 Explanation:
 ---------------
@@ -199,7 +199,7 @@ Drinks → Hot → Tea → Coffee → Cold → Cola → Fanta
 =======================================================================
 📘 Next Steps:
 --------------
-In the next lecture, we will learn:
+In the next note, we will learn:
 ➡️ **Inorder Traversal** — where we visit nodes in the order:
    Left ➜ Root ➜ Right
 =======================================================================
