@@ -58,8 +58,8 @@ Traversal Order:
 
 📘 Diagram Flow:
 ---------------
-                1
-              /   \
+                 1
+               /   \
            (L)2     (R)3
            / \       / \
           4   5     6   7
@@ -98,16 +98,16 @@ newBT.leftchild = leftchild
 newBT.rightchild = rightchild
 
 # Level 2 (left subtree)
-tea = TreeNode("4")
-coffee = TreeNode("5")
-leftchild.leftchild = tea
-leftchild.rightchild = coffee
+N4 = TreeNode("4")
+N5 = TreeNode("5")
+leftchild.leftchild = N4
+leftchild.rightchild = N5
 
 # Level 2 (right subtree)
-cola = TreeNode("6")
-fanta = TreeNode("7")
-rightchild.leftchild = cola
-rightchild.rightchild = fanta
+N6 = TreeNode("6")
+N7 = TreeNode("7")
+rightchild.leftchild = N6
+rightchild.rightchild = N7
 
 r"""
 At this point, the Binary Tree looks like:
