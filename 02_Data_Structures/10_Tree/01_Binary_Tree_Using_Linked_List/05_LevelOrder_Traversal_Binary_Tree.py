@@ -27,9 +27,9 @@ Let's consider this Binary Tree:
                /   \
              2       3
             / \     / \
-          4   5   6   7
-               \
-               10
+           4   5   6   7
+                \
+                 10
 
 Traversal follows the pattern:
 -------------------------------
@@ -53,9 +53,9 @@ LevelOrder Traversal (Breadth-First Search)
              /     \
            2         3
          /   \     /   \
-       4     5   6     7
-              \
-              10
+        4     5   6     7
+               \
+                10
 
 Level 1: 1  
 Level 2: 2 → 3  
@@ -123,7 +123,7 @@ At this point, the Binary Tree looks like:
                /   \
              2       3
             / \     / \
-          4   5   6   7
+           4   5   6   7
 """
 
 # -----------------------------
