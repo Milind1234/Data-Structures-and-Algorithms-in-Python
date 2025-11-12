@@ -1,21 +1,23 @@
 r"""
-📘 Topic: LevelOrder Traversal of Binary Tree (Linked List Representation)
-========================================================================
+📘 Topic: LevelOrder Traversal of Binary Tree (Linked List & Deque Implementation)
+=================================================================================
 
 🎯 Purpose:
 ------------
-To understand how **LevelOrder Traversal** works in a Binary Tree
-and how to implement it using a **Queue** (Breadth First Search approach).
+To understand how **LevelOrder Traversal (Breadth-First Search)** works in a Binary Tree
+and to implement it in two ways:
+1️⃣ Using a **custom Queue (Linked List)**  
+2️⃣ Using Python’s **collections.deque**
 
-In this traversal method, we visit:
------------------------------------
-1️⃣ Level 1 (Root)
-2️⃣ Level 2 (Children of Root)
-3️⃣ Level 3 (Grandchildren)
-4️⃣ … and so on until all levels are visited.
+=======================================================================
+📖 Definition
+=======================================================================
+In **LevelOrder Traversal**, we visit all nodes of a binary tree **level by level** —
+starting from the root (Level 1), then Level 2, and so on, until the last level.
 
-This is the only traversal that visits nodes **level by level**, from top to bottom
-and from **left to right** within each level.
+Order of traversal:
+--------------------
+Root ➜ Children ➜ Grandchildren ➜ ...
 
 =======================================================================
 🌳 Tree Example:
@@ -31,8 +33,8 @@ Let's consider this Binary Tree:
                 \
                  10
 
-Traversal follows the pattern:
--------------------------------
+Traversal Levels:
+-----------------
 Level 1 → 1  
 Level 2 → 2, 3  
 Level 3 → 4, 5, 6, 7  
@@ -71,10 +73,11 @@ Traversal Order:
 =======================================================================
 """
 
-# -----------------------------
-# IMPORT QUEUE LINKED LIST
-# -----------------------------
-import QueueLinkedList as queue  # Queue implemented via Linked List (from previous section)
+# =============================================================
+# 🧩 METHOD 1 — Using Custom Queue (Linked List-based)
+# =============================================================
+
+import QueueLinkedList as queue  # Import custom queue class (from previous module)
 
 # -----------------------------
 # CLASS DEFINITION
@@ -84,8 +87,10 @@ class TreeNode:
         """
         📘 Constructor (__init__):
         -------------------------
-        - Initializes a Binary Tree node with `data`, `leftchild`, and `rightchild`.
-        - Each node can have at most two children.
+        Initializes a Binary Tree node with:
+          - data (value)
+          - leftchild
+          - rightchild
         """
         self.data = data
         self.leftchild = None
@@ -116,7 +121,7 @@ N7 = TreeNode("7")
 rightchild.leftchild = N6
 rightchild.rightchild = N7
 
-"""
+r"""
 At this point, the Binary Tree looks like:
 
                  1
@@ -127,35 +132,32 @@ At this point, the Binary Tree looks like:
 """
 
 # -----------------------------
-# LEVEL ORDER TRAVERSAL FUNCTION
+# LEVEL ORDER TRAVERSAL (Custom Queue)
 # -----------------------------
-def levelOrderTraversal(rootnode):
+def levelOrderTraversal_LinkedList(rootnode):
     """
-    📘 Function: levelOrderTraversal(rootnode)
-    ------------------------------------------
-    Traverses the Binary Tree **level by level** using a Queue.
+    📘 Function: levelOrderTraversal_LinkedList(rootnode)
+    -----------------------------------------------------
+    Traverses the Binary Tree level-by-level using a Queue implemented via Linked List.
 
-    Logic:
+    Steps:
     -------
     1️⃣ Create an empty queue.
     2️⃣ Enqueue the root node.
-    3️⃣ While queue is not empty:
-        - Dequeue a node and print its data.
-        - Enqueue its left child (if exists).
-        - Enqueue its right child (if exists).
-
-    This ensures that nodes are visited **in order of their level**.
+    3️⃣ While the queue is not empty:
+         - Dequeue a node.
+         - Print its data.
+         - Enqueue its left and right children (if they exist).
     """
     if not rootnode:
         return
     else:
-        customQueue = queue.Queue()        # Create a custom queue
-        customQueue.enqueue(rootnode)      # Enqueue the root node
+        customQueue = queue.Queue()          # Create a custom queue object
+        customQueue.enqueue(rootnode)        # Enqueue the root node
 
-        # Process nodes level by level
-        while not(customQueue.isEmpty()):
-            root = customQueue.dequeue()
-            print(root.value.data)
+        while not(customQueue.isEmpty()):    # Continue until queue is empty
+            root = customQueue.dequeue()     # Dequeue the front node
+            print(root.value.data)           # Visit current node
 
             # Enqueue Left Child
             if (root.value.leftchild is not None):
@@ -166,15 +168,55 @@ def levelOrderTraversal(rootnode):
                 customQueue.enqueue(root.value.rightchild)
 
 
+# =============================================================
+# 🧩 METHOD 2 — Using Python collections.deque (Efficient Built-in)
+# =============================================================
+from collections import deque
+
+def levelOrderTraversal_Deque(root):
+    """
+    📘 Function: levelOrderTraversal_Deque(root)
+    --------------------------------------------
+    Traverses the Binary Tree using Python's deque for efficient FIFO queue behavior.
+
+    Logic:
+    -------
+    - Initialize a deque with the root node.
+    - Pop nodes from the left.
+    - Append left and right children to the right.
+    - Continue until deque is empty.
+
+    ✅ Time Complexity → O(n)
+    ✅ Space Complexity → O(n)
+    """
+    if not root:
+        return
+
+    queue = deque([root])  # Initialize deque with root node
+
+    while queue:
+        node = queue.popleft()      # Pop leftmost node
+        print(node.data, end=" ")   # Visit current node
+
+        if node.leftchild:
+            queue.append(node.leftchild)
+        if node.rightchild:
+            queue.append(node.rightchild)
+
+
 # -----------------------------
-# FUNCTION CALL
+# FUNCTION CALLS
 # -----------------------------
-print("🧭 LevelOrder Traversal Output:\n")
-levelOrderTraversal(newBT)
+print("🧭 LevelOrder Traversal using Custom Queue:\n")
+levelOrderTraversal_LinkedList(newBT)
+
+print("\n\n🧭 LevelOrder Traversal using Python deque:\n")
+levelOrderTraversal_Deque(newBT)
 
 """
 Expected Output:
 ----------------
+🧭 LevelOrder Traversal using Custom Queue:
 1
 2
 3
@@ -183,50 +225,60 @@ Expected Output:
 6
 7
 
+🧭 LevelOrder Traversal using Python deque:
+1 2 3 4 5 6 7
+
 📘 Explanation:
 ---------------
-Traversal Path (Level by Level):
---------------------------------
-Level 1 → 1  
-Level 2 → 2, 3  
-Level 3 → 4, 5, 6, 7  
+Both functions follow the same traversal sequence:
+Root → Level 2 → Level 3 → ...
 
-Traversal Sequence:
-👉 1 → 2 → 3 → 4 → 5 → 6 → 7
-"""
+Traversal Path:
+---------------
+1 → 2 → 3 → 4 → 5 → 6 → 7
 
-# -----------------------------
-# TIME & SPACE COMPLEXITY ANALYSIS
-# -----------------------------
-"""
+=======================================================================
+⚖️ COMPARISON: LinkedList Queue vs Python deque
+=======================================================================
+| Feature                    | LinkedList Queue        | collections.deque       |
+|-----------------------------|-------------------------|-------------------------|
+| Implementation              | Manual (custom)         | Built-in (optimized C)  |
+| Performance                 | O(1) enqueue/dequeue    | O(1) append/popleft     |
+| Educational Value           | Excellent for DSA demo  | Best for production use |
+| Code Simplicity             | Medium                  | Very Simple             |
+| Use Case                    | Teaching data structure | Real-world applications  |
+
+=======================================================================
+🧩 Complexity Analysis
+=======================================================================
 📈 Time Complexity: O(n)
 ------------------------
-- Each node is visited exactly once.
-- n = total number of nodes in the binary tree.
+- Every node is enqueued and dequeued exactly once.
 
 📊 Space Complexity: O(n)
 -------------------------
-- Due to use of queue to store all nodes level by level.
-- In the worst case, queue will hold all nodes of the last level.
+- Queue stores all nodes at the current level.
+- In the worst case (last level full), queue holds n/2 nodes.
 
 =======================================================================
-🧩 Summary
+✅ Summary
 =======================================================================
-✅ LevelOrder Traversal = Breadth First Search (BFS)  
-✅ Traverses all levels from top to bottom, left to right.  
-✅ Time Complexity  → O(n)  
-✅ Space Complexity → O(n)  
-✅ Uses Queue as helper data structure (FIFO principle).
+✔ LevelOrder Traversal = Breadth First Search (BFS)  
+✔ Traverses tree level by level (top to bottom, left to right)  
+✔ Time Complexity  → O(n)  
+✔ Space Complexity → O(n)  
+✔ Uses a queue (FIFO) as the helper data structure  
+✔ Last traversal type in Binary Tree traversal family 🌳
 
 =======================================================================
 📘 Next Steps:
 --------------
-Now we have learned all four binary tree traversal techniques:
+Now that we have learned all four binary tree traversal techniques:
 1️⃣ PreOrder  → Root ➜ Left ➜ Right  
 2️⃣ InOrder   → Left ➜ Root ➜ Right  
 3️⃣ PostOrder → Left ➜ Right ➜ Root  
-4️⃣ LevelOrder → Level-by-Level (using Queue)
+4️⃣ LevelOrder → Level-by-Level (BFS)
 
-➡️ Next, we will learn **Insertion** and **Deletion** in Binary Trees.
+➡️ Next Topic: **Insertion and Deletion in Binary Tree**
 =======================================================================
 """
