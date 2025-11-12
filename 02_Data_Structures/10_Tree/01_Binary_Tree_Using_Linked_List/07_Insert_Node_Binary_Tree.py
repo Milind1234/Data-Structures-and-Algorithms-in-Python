@@ -151,6 +151,7 @@ def insertNodeBT(rootNode, newNode):
     """
     if not rootNode:
         rootNode = newNode
+        return "🌱 Root node created successfully."
     else:
         customQueue = queue.Queue()
         customQueue.enqueue(rootNode)
