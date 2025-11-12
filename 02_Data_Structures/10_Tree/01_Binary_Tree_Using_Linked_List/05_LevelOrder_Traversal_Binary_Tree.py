@@ -196,7 +196,7 @@ def levelOrderTraversal_Deque(root):
 
     while queue:
         node = queue.popleft()      # Pop leftmost node
-        print(node.data, end=" ")   # Visit current node
+        print(node.data, end=" --> ")   # Visit current node
 
         if node.leftchild:
             queue.append(node.leftchild)
