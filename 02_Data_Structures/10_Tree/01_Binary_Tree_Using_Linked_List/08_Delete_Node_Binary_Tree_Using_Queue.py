@@ -1,53 +1,70 @@
-r"""
-📘 Topic: Deletion in Binary Tree (Level Order / BFS Approach)
-=============================================================
+"""
+📘 Topic: Delete a Node in Binary Tree (Using Custom Queue - Linked List Queue)
+===============================================================================
 
 🎯 Purpose:
-------------
-To learn how to **delete a node** from a Binary Tree using **Level Order Traversal**.
-Because a general binary tree has no BST ordering, we delete a node by:
-  1) Finding the node to delete (by value),
-  2) Finding the deepest (rightmost) node in the tree,
-  3) Replacing the target node's data with the deepest node's data,
-  4) Removing the deepest node.
+-----------
+To delete a node from a **Binary Tree** (NOT BST) using **Level Order Traversal**.
 
-This preserves the tree shape as a near-complete tree (fills top-to-bottom, left-to-right).
+Deletion requires three major operations:
 
-=======================================================================
-🧠 Key Idea (Why this method?)
-=======================================================================
-- We cannot "shift" child pointers easily without changing structure.
-- Replacing target node's data with deepest node's value and deleting the deepest node is
-  a standard approach that keeps other subtrees intact.
-- The deepest node is easy to find with a level-order traversal (BFS).
+1️⃣ Find the target node (value to delete).  
+2️⃣ Find the **deepest node** (last node in Level Order).  
+3️⃣ Copy deepest node → target node, then delete the deepest node.
 
-=======================================================================
-⚠️ Important: Queue API assumption
-=======================================================================
-This note assumes your `QueueLinkedList.dequeue()` returns an object with a `.value` attribute:
-- `q.dequeue()` → returns a queue-node like `{ value: TreeNode(...) }`
-- Access tree node with `q.dequeue().value`
-If your queue returns raw `TreeNode` objects instead, replace `root.value` with `root` in the code.
+This keeps the Binary Tree **complete and balanced**.
+
+-------------------------------------------------------------------------------
+🧠 Why this method?
+-------------------------------------------------------------------------------
+A binary tree fills from **left → right → next level**.
+Deleting a node in the middle would leave a “hole”, breaking completeness.
+
+✔ Replacing with the deepest node **keeps structure intact**  
+✔ Exactly how heap deletion works  
+-------------------------------------------------------------------------------
+🌳 Visual Example
+-------------------------------------------------------------------------------
+
+Before deletion:
+                1
+              /   \
+            2       3
+           / \     / \
+          4   5   6   7
+
+Delete node = 3  
+Deepest node = 7  
+→ Replace 3 → 7  
+→ Remove original deepest node (7)
+
+After deletion:
+                1
+              /   \
+            2       7
+           / \     /
+          4   5   6
+-------------------------------------------------------------------------------
 """
 
-# -----------------------------
-# IMPORT CUSTOM QUEUE
-# -----------------------------
-import QueueLinkedList as queue  # your linked-list-based queue (as used previously)
+import QueueLinkedList as queue  # Custom queue (Linked List based)
 
-# -----------------------------
-# TREE NODE DEFINITION
-# -----------------------------
+
+# ================================================================
+# 📘 TreeNode Class — No changes made
+# ================================================================
 class TreeNode:
     def __init__(self, data):
         self.data = data
         self.leftchild = None
         self.rightchild = None
 
-# -----------------------------
-# EXAMPLE TREE BUILD (for demo)
-# -----------------------------
+
+# ================================================================
+# 📘 Create Binary Tree (Your Structure - Unchanged)
+# ================================================================
 newBT = TreeNode("1")
+
 leftchild = TreeNode("2")
 rightchild = TreeNode("3")
 
@@ -64,153 +81,199 @@ N7 = TreeNode("7")
 rightchild.leftchild = N6
 rightchild.rightchild = N7
 
-r"""
-Initial Tree:
 
-                 1
-               /   \
-             2       3
-            / \     / \
-           4   5   6   7
-"""
-
-# -----------------------------
-# LEVEL-ORDER PRINTER (helper)
-# -----------------------------
+# ================================================================
+# 📘 LEVEL ORDER TRAVERSAL (Custom Queue)
+# ================================================================
 def levelOrderTraversal_LinkedList(rootnode):
     """
-    Print tree nodes level by level using the custom queue.
+    🌲 LEVEL ORDER TRAVERSAL (Breadth-First Search)
+    ==============================================
+    Algorithm:
+    ----------
+    1️⃣ Create an empty queue.
+    2️⃣ Enqueue the root node.
+    3️⃣ While queue not empty:
+        - Dequeue a node (front of queue)
+        - Print its value
+        - Enqueue left child (if exists)
+        - Enqueue right child (if exists)
+
+    Why BFS?
+    --------
+    - Helps us scan all nodes level-by-level.
+    - Used to find deepest node & target node during deletion.
     """
     if not rootnode:
         return
-    customQueue = queue.Queue()
-    customQueue.enqueue(rootnode)
+    else:
+        customQueue = queue.Queue()          # Step 1: Create queue
+        customQueue.enqueue(rootnode)        # Step 2: Insert root
 
-    while not customQueue.isEmpty():
-        qnode = customQueue.dequeue()        # queue node wrapper
-        node = qnode.value                   # actual TreeNode
-        print(node.data)
-        if node.leftchild is not None:
-            customQueue.enqueue(node.leftchild)
-        if node.rightchild is not None:
-            customQueue.enqueue(node.rightchild)
+        print("\n🌲 Level Order Traversal:")
+
+        while not(customQueue.isEmpty()):    # Step 3: BFS Loop
+            root = customQueue.dequeue()     # Take first-in node
+            print(" →", root.value.data)
+
+            # Enqueue children (Left → Right)
+            if (root.value.leftchild is not None):
+                customQueue.enqueue(root.value.leftchild)
+
+            if (root.value.rightchild is not None):
+                customQueue.enqueue(root.value.rightchild)
 
 
-# -----------------------------
-# GET DEEPEST NODE
-# -----------------------------
+
+# ================================================================
+# 📘 Get Deepest Node (Rightmost node in last level)
+# ================================================================
 def getDeepestNode(rootnode):
     """
-    Returns the deepest (rightmost in level order) TreeNode object.
-    Uses level-order traversal to reach the last node visited.
+    🔍 GET DEEPEST NODE
+    ====================
+    Purpose:
+    --------
+    The deepest node is the **last node visited** during BFS.
+
+    Algorithm:
+    ----------
+    1️⃣ Initialize queue with root.
+    2️⃣ Perform Level Order traversal.
+    3️⃣ The final popped node = deepest node.
+    4️⃣ Return that node.
+
+    Why deepest node?
+    ------------------
+    This node will replace the target node’s value
+    to maintain tree completeness.
     """
     if not rootnode:
-        return None
+        return "Tree is Empty"
+    else:
+        customQueue = queue.Queue()
+        customQueue.enqueue(rootnode)
 
-    customQueue = queue.Queue()
-    customQueue.enqueue(rootnode)
-    last = None
+        while not (customQueue.isEmpty()):
+            root = customQueue.dequeue()
 
-    while not customQueue.isEmpty():
-        qnode = customQueue.dequeue()
-        last = qnode.value
-        # enqueue children for further traversal
-        if last.leftchild is not None:
-            customQueue.enqueue(last.leftchild)
-        if last.rightchild is not None:
-            customQueue.enqueue(last.rightchild)
+            # Continue BFS until last node
+            if (root.value.leftchild is not None):
+                customQueue.enqueue(root.value.leftchild)
 
-    # 'last' now holds the deepest node
-    return last
+            if (root.value.rightchild is not None):
+                customQueue.enqueue(root.value.rightchild)
+
+        deepestNode = root.value
+        return deepestNode   # Last visited node
 
 
-# -----------------------------
-# DELETE DEEPEST NODE
-# -----------------------------
+
+# ================================================================
+# 📘 Delete Deepest Node From the Tree
+# ================================================================
 def deleteDeepestNode(rootnode, deepest_node):
     """
-    Deletes the deepest_node from the tree by scanning nodes level-order to find its parent
-    and removing the proper child reference.
-    Returns True if deleted, False otherwise.
-    """
-    if not rootnode or deepest_node is None:
-        return False
+    ❌ DELETE DEEPEST NODE
+    =======================
+    Purpose:
+    --------
+    Delete the physical deepest node from the tree.
 
-    customQueue = queue.Queue()
-    customQueue.enqueue(rootnode)
+    Algorithm:
+    ----------
+    1️⃣ Run BFS using queue.
+    2️⃣ For each node:
+        - If node == deepest_node → delete it (root.value = None)
+        - If node.leftchild == deepest_node → remove link
+        - If node.rightchild == deepest_node → remove link
+    3️⃣ Stop after deleting.
 
-    while not customQueue.isEmpty():
-        qnode = customQueue.dequeue()
-        node = qnode.value
-
-        # If node's leftchild is the deepest node -> remove it
-        if node.leftchild:
-            if node.leftchild is deepest_node:
-                node.leftchild = None
-                return True
-            else:
-                customQueue.enqueue(node.leftchild)
-
-        # If node's rightchild is the deepest node -> remove it
-        if node.rightchild:
-            if node.rightchild is deepest_node:
-                node.rightchild = None
-                return True
-            else:
-                customQueue.enqueue(node.rightchild)
-
-    return False
-
-
-# -----------------------------
-# DELETE NODE (MAIN)
-# -----------------------------
-def deleteNodeBT(rootnode, delete_value):
-    """
-    Deletes the first node whose data == delete_value using the standard BFS-delete approach:
-      1) Find the node to delete (target node)
-      2) Find the deepest node
-      3) Copy deepest node's data into the target node
-      4) Delete the deepest node
-
-    Returns a message about success/failure.
+    Why delete separately?
+    -----------------------
+    After copying deepest node data into target node,
+    we must remove deepest node to avoid duplicates.
     """
     if not rootnode:
-        return "Tree is empty"
-
-    # 1) Find the node to delete using level-order search
-    customQueue = queue.Queue()
-    customQueue.enqueue(rootnode)
-
-    target_node = None
-    while not customQueue.isEmpty():
-        qnode = customQueue.dequeue()
-        node = qnode.value
-        if node.data == delete_value:
-            target_node = node
-            break
-        if node.leftchild:
-            customQueue.enqueue(node.leftchild)
-        if node.rightchild:
-            customQueue.enqueue(node.rightchild)
-
-    if target_node is None:
-        return f"❌ Node '{delete_value}' not found in the tree."
-
-    # 2) Find deepest node
-    deepest = getDeepestNode(rootnode)
-    if deepest is None:
-        return "Unexpected error: deepest node not found."
-
-    # 3) Replace target node's data with deepest node's data
-    target_node.data = deepest.data
-
-    # 4) Delete the deepest node from the tree
-    deleted = deleteDeepestNode(rootnode, deepest)
-    if deleted:
-        return f"✅ Node '{delete_value}' deleted (replaced with deepest node '{deepest.data}')."
+        return 
     else:
-        return "❌ Failed to delete deepest node."
+        customQueue = queue.Queue()
+        customQueue.enqueue(rootnode)
+
+        while not(customQueue.isEmpty()):
+            root = customQueue.dequeue()
+
+            # CASE 1: Node itself is deepest node
+            if root.value is deepest_node:
+                root.value = None
+                return 
+
+            # CASE 2: Deepest node is RIGHT CHILD
+            if root.value.rightchild:
+                if root.value.rightchild is deepest_node:
+                    root.value.rightchild = None
+                    return
+                else:
+                    customQueue.enqueue(root.value.rightchild)
+
+            # CASE 3: Deepest node is LEFT CHILD
+            if root.value.leftchild:
+                if root.value.leftchild is deepest_node:
+                    root.value.leftchild = None
+                    return
+                else:
+                    customQueue.enqueue(root.value.leftchild)
+
+
+
+# ================================================================
+# 📘 DELETE NODE BY VALUE (Main Function)
+# ================================================================
+def deleteNodeBT(rootnode, delete_node):
+    """
+    🪓 DELETE NODE BY VALUE (Main Function)
+    ======================================
+
+    Steps:
+    ------
+    1️⃣ Perform BFS to locate the target node:
+         - root.value.data == delete_node
+
+    2️⃣ Retrieve deepest node using getDeepestNode()
+
+    3️⃣ Replace target node’s value with deepest node’s value
+
+    4️⃣ Call deleteDeepestNode() to remove deepest node
+
+    Why this works:
+    ----------------
+    - Guaranteed to preserve binary tree structure.
+    - Avoids "holes" that break completeness.
+    """
+    if not rootnode:
+        return "Empty Tree"
+    else:
+        customQueue = queue.Queue()
+        customQueue.enqueue(rootnode)
+
+        while not(customQueue.isEmpty()):
+            root = customQueue.dequeue()
+
+            # 🎯 STEP 1: Target found
+            if root.value.data == delete_node:
+                deepestnode = getDeepestNode(rootnode)  # STEP 2
+                root.value.data = deepestnode.data      # STEP 3
+                deleteDeepestNode(rootnode, deepestnode) # STEP 4
+                return f"🎉 Node '{delete_node}' deleted successfully!"
+
+            # Continue BFS
+            if (root.value.leftchild is not None):
+                customQueue.enqueue(root.value.leftchild)
+
+            if (root.value.rightchild is not None):
+                customQueue.enqueue(root.value.rightchild)
+
+        return "❌ Failed to delete – Node not found!"
 
 
 # -----------------------------
@@ -284,4 +347,106 @@ Edge Cases & Behaviour:
 Suggested Improvement:
  - Return the new root from deleteNodeBT to support deleting the root node in single-node trees.
  - Provide a deque-based version (below) for simpler production-ready code.
-"""
+
+ 
+=======================================================================
+🔵 FULL ALGORITHM FLOWCHART (deleteNodeBT)
+=======================================================================
+
+                ┌──────────────────────────────┐
+                │       Start deleteNodeBT      │
+                └───────────────┬──────────────┘
+                                │
+                                ▼
+                    ┌──────────────────────┐
+                    │ Is rootnode None ?   │
+                    └───────┬──────────────┘
+                            │Yes
+                            ▼
+                   Return "Empty Tree"
+                            │
+                            │No
+                            ▼
+                ┌──────────────────────────────┐
+                │ Create queue & enqueue root  │
+                └───────────────┬──────────────┘
+                                │
+                                ▼
+                   ┌─────────────────────────┐
+                   │ While queue NOT empty   │
+                   └───────────┬─────────────┘
+                               │
+                               ▼
+                     Dequeue current = root
+                               │
+                               ▼
+         ┌─────────────────────────────────────────────────┐
+         │ Does root.value.data == delete_node ?           │
+         └──────────────┬──────────────────────────────────┘
+                        │Yes
+                        ▼
+          ┌────────────────────────────────────────────┐
+          │ deepest = getDeepestNode(rootnode)         │
+          │ root.value.data = deepest.data             │
+          │ deleteDeepestNode(rootnode, deepest)       │
+          └───────────────────────┬────────────────────┘
+                                  ▼
+                     Return "Node deleted successfully"
+                                  │
+                                  └────────────────────────
+
+                        No
+                        │
+                        ▼
+               Enqueue left child (if exists)
+                        │
+                        ▼
+               Enqueue right child (if exists)
+                        │
+                        ▼
+                 Continue loop until queue empty
+
+            ┌────────────────────────────┐
+            │ Node not found → return ❌ │
+            └────────────────────────────┘
+
+
+=======================================================================
+🟩 ASCII STEP-BY-STEP EXPLANATION
+=======================================================================
+
+Before Deletion:
+----------------
+            1
+          /   \
+        2       3
+       / \     / \
+      4   5   6   7
+
+Searching for node '3' using BFS:
+Queue movement:
+[1]
+[2, 3]
+[3, 4, 5] → FOUND 3 ✔
+
+Finding Deepest Node:
+Queue:
+[1]
+[2, 3]
+[4, 5, 6, 7] → deepest = 7
+
+Replacing:
+Node 3.data = 7
+
+Deleting deepest node (7):
+Tree becomes:
+
+            1
+          /   \
+        2       7
+       / \     /
+      4   5   6
+
+ 
+ 
+ """
