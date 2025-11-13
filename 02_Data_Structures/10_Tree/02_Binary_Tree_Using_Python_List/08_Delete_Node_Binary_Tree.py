@@ -1,159 +1,187 @@
 r"""
-📘 Topic: Level Order Traversal in Binary Tree (Python List Representation)
-==========================================================================
+📘 Topic: Delete Node in Binary Tree (Python List Representation)
+=================================================================
 
 🎯 Purpose:
 -----------
-To understand how **Level Order Traversal (Breadth-First Traversal)** works  
-in a Binary Tree stored inside a **Python List (array-based implementation)**.
+To understand how to **delete a node** from a Binary Tree that is stored  
+in a **Python List (array-based representation)**.
 
-Unlike linked-list binary trees (which need a Queue),  
-array-based trees can perform LevelOrder traversal **directly**  
-because the elements are **already stored level by level**.
+Array-based binary trees allow **O(1)** index access, making deletion easier:
+We simply replace the target node with the **last node** in the tree  
+and then remove the last node.
 
-=======================================================================
-🌳 Binary Tree Representation Using Python List
-=======================================================================
+This ensures the tree remains a **Complete Binary Tree**.
 
-We store the binary tree in a Python list where:
+=====================================================================
+🌳 Binary Tree Structure (List Representation)
+=====================================================================
 
-- Index 1 → Root
-- Index 2 → Left child of root
-- Index 3 → Right child of root
-- Index 4 → Left child of node at index 2
-- ...
+Binary Tree stored like this:
 
-Example Tree:
+Index:    0    1    2    3    4    5    6    7
+Value:   [– ,  1,   2,   3,   4,   5,   6,   7]
 
-                1
-             /     \
-           2         3
-         /  \      /  \
-        4    5    6    7
+Parent-Child relations:
+- Left child  = 2 * i  
+- Right child = 2 * i + 1  
 
-Stored as:
+Since list already stores nodes **level-wise**, deletion only needs index updates.
 
-Index:   0   1   2   3   4   5   6   7
-Value:  [–,  1,  2,  3,  4,  5,  6,  7]
+=====================================================================
+🧠 deleteNodeBT() — Algorithm Logic
+=====================================================================
 
-Since nodes are stored **in level order**, traversal becomes very easy:
-→ Just loop from index 1 to lastUsedIndex.
+We delete by following **3 simple steps**:
 
-=======================================================================
-🧠 Level Order Traversal — Core Idea
-=======================================================================
+1️⃣ **Search for the node** with given value  
+    - Loop through list from index 1 → lastUsedIndex  
 
-Level Order Traversal (BFS):
+2️⃣ When found, **replace it with the last node** in the tree  
+    - customList[i] = customList[lastUsedIndex]
 
-     Visit nodes level by level  
-     LEFT ➜ RIGHT for each level
+3️⃣ **Delete last node** and reduce lastUsedIndex  
+    - customList[lastUsedIndex] = None  
+    - lastUsedIndex -= 1  
 
-In array-based tree:
-- The list indices already guarantee this order.
-- So LevelOrder = simply print elements from 1 → lastUsedIndex.
+This ensures:
+✔ Tree remains complete  
+✔ No holes inside the list  
+✔ Efficient deletion without shifting elements  
 
-=======================================================================
-💡 Algorithm (Simple & Efficient)
-=======================================================================
+=====================================================================
+💡 Example
+=====================================================================
 
-FUNCTION levelOrderTraversal(startIndex):
+Tree:
+        1
+      /   \
+     2     3
+    / \   / \
+   4  5  6   7
 
-1️⃣ Loop i from startIndex → lastUsedIndex  
-2️⃣ Print customList[i]  
-3️⃣ (Done)
+Array: [None, 1, 2, 3, 4, 5, 6, 7]
 
-No recursion required  
-No queue required  
-Time complexity O(n)
+Delete "3":
 
-=======================================================================
-💻 Python Code (Your Code With Explanations)
-=======================================================================
+- Last node = 7
+- Replace index of "3" with "7"
+- Remove last element
+
+Resulting tree:
+
+        1
+      /   \
+     2     7
+    / \   /
+   4  5  6
+
+Array becomes:
+[None, 1, 2, 7, 4, 5, 6]
+
+=====================================================================
+💻 Python Code (Your Code With Added Explanations)
+=====================================================================
 """
 
-# ===========================================================
-# 🏷️ CLASS DEFINITION — BinaryTree (Array-Based)
-# ===========================================================
+# ===================================================================
+# 🏷️ CLASS DEFINITION — Binary Tree (Array-Based Implementation)
+# ===================================================================
 
 class BinaryTree:
     def __init__(self, size):
-        self.customList = size * [None]     # Fixed-size array
-        self.lastUsedIndex = 0              # Tracks last node
-        self.maxsize = size                 # Maximum capacity
+        self.customList = size * [None]        # Fixed-size list
+        self.lastUsedIndex = 0                 # Tracks last filled index
+        self.maxsize = size                    # Maximum capacity
 
     def __str__(self):
-        # Pretty-print only the used portion of the list
         return f"The Binary Tree Array -> {self.customList[1:self.lastUsedIndex+1]}"
     
     def insertNode(self , node_value):
-        # Check if array is full
         if self.lastUsedIndex + 1 == self.maxsize:
             return " The Binary tree is Full"
-
-        # Insert at next available position
         self.customList[self.lastUsedIndex + 1 ] = node_value
         self.lastUsedIndex += 1
-
         return f"The Node {node_value} is Inserted Successfully"
     
-# ===========================================================
-# 🏷️ LEVEL ORDER TRAVERSAL — levelOrderTraversal(index)
-# ===========================================================
-
     def levelOrderTraversal(self , index):
-        r"""
-        📘 Level Order Traversal (Array-Based Binary Tree)
-        ==================================================
-
-        🎯 Goal:
-        --------
-        Print all nodes **level by level**, starting from the root.
-
-        ------------------------------------------------------------
-        🧠 Why it's so simple here?
-        ------------------------------------------------------------
-        Because the binary tree is stored **in level order** inside the list.
-
-        Example:
-            Tree: 1, 2, 3, 4, 5, 6, 7
-            Array: [None, 1, 2, 3, 4, 5, 6, 7]
-
-        The list itself already maintains:
-            Level 1 → 1  
-            Level 2 → 2, 3  
-            Level 3 → 4, 5, 6, 7  
-
-        So traversal = just print the array from 1 → lastUsedIndex.
-
-        ------------------------------------------------------------
-        🧩 Algorithm:
-        ------------------------------------------------------------
-        FOR i from `index` TO `lastUsedIndex`:
-             print customList[i]
-
-        ------------------------------------------------------------
-        ⏱ Time Complexity:
-        ------------------------------------------------------------
-        O(n) — every node printed once
-
-        ------------------------------------------------------------
-        📌 Example Output for Tree [1..7]:
-        ------------------------------------------------------------
-        1
-        2
-        3
-        4
-        5
-        6
-        7
-        """
         for i in range(index, self.lastUsedIndex+1):
             print(self.customList[i])
 
+# ===================================================================
+# 🏷️ DELETE NODE — deleteNodeBT(delete_value)
+# ===================================================================
 
-# ===========================================================
-# 🧪 TESTING
-# ===========================================================
+    def deleteNodeBT(self , delete_value):
+        r"""
+        📘 deleteNodeBT(delete_value)
+        ==============================
+
+        🎯 Purpose:
+        -----------
+        Delete a node from the Binary Tree (array-based)  
+        **by replacing it with the last node**.
+
+        ------------------------------------------------------------
+        🧠 HOW IT WORKS (Algorithm)
+        ------------------------------------------------------------
+
+        1️⃣ Check if the tree is empty  
+             if lastUsedIndex == 0 → nothing to delete
+
+        2️⃣ Scan list from index 1 → lastUsedIndex  
+             if customList[i] == delete_value → FOUND
+
+        3️⃣ Replace found node with last node  
+             customList[i] = customList[lastUsedIndex]
+
+        4️⃣ Remove last node and update lastUsedIndex  
+             customList[lastUsedIndex] = None  
+             lastUsedIndex -= 1
+
+        ------------------------------------------------------------
+        🧩 Visualization
+        ------------------------------------------------------------
+
+        Delete: 3  
+        List: [1,2,3,4,5,6,7]
+
+        Last node = 7  
+        Replace index-of(3) with 7  
+        Remove final 7  
+
+        Result:
+        [1,2,7,4,5,6]
+
+        ------------------------------------------------------------
+        ⏱ Complexity
+        ------------------------------------------------------------
+        Time   → O(n)   (search in array)  
+        Space  → O(1)
+
+        ------------------------------------------------------------
+        """
+        if self.lastUsedIndex == 0:
+            return "There is no node to delete"
+
+        for i in range(1,self.lastUsedIndex+1):
+
+            # 🎯 Found the node to delete
+            if self.customList[i] == delete_value:
+
+                # Replace with last node
+                self.customList[i] = self.customList[self.lastUsedIndex]
+
+                # Delete last node
+                self.customList[self.lastUsedIndex] = None
+                self.lastUsedIndex -= 1
+
+                return f"The Node {delete_value} has been successfully deleted"
+
+
+# ===================================================================
+# 🧪 TESTING THE OPERATIONS
+# ===================================================================
 
 newBT = BinaryTree(9)
 
@@ -167,14 +195,17 @@ print(newBT.insertNode("7"))
 
 print(newBT)
 
-print("\n📌 Level Order Traversal Output:")
+print("\n🪓 Deleting Node '3':")
+print(newBT.deleteNodeBT("3"))
+
+print("\n🌳 Tree After Deletion:")
 newBT.levelOrderTraversal(1)
 
-
 r"""
-=======================================================================
-📤 Example Output:
-=======================================================================
+=====================================================================
+📤 Example Output
+=====================================================================
+
 The Node 1 is Inserted Successfully  
 The Node 2 is Inserted Successfully  
 The Node 3 is Inserted Successfully  
@@ -185,26 +216,33 @@ The Node 7 is Inserted Successfully
 
 The Binary Tree Array -> ['1', '2', '3', '4', '5', '6', '7']
 
-📌 Level Order Traversal Output:
+🪓 Deleting Node '3':
+The Node 3 has been successfully deleted
+
+🌳 Tree After Deletion:
 1  
 2  
-3  
+7  
 4  
 5  
 6  
-7  
 
-=======================================================================
+=====================================================================
 ✅ Summary
-=======================================================================
-✔ Level Order = Straightforward list printing  
-✔ No queue needed  
-✔ Very efficient in array-based trees  
-✔ Perfect for complete binary trees  
+=====================================================================
 
-Next Steps:
------------
-➡ Search in array-based Binary Tree  
-➡ Deletion from array-based Binary Tree  
-=======================================================================
+✔ Deletion replaces the deleted node with **deepest node**  
+✔ Ensures the tree remains **complete**  
+✔ Very efficient for array-based binary trees  
+✔ Time Complexity → O(n) (search)  
+✔ Space Complexity → O(1)
+
+=====================================================================
+Next:
+-----
+➡ Delete Entire Binary Tree  
+➡ Search Operation  
+➡ Traversals (Inorder / Preorder / Postorder)
+
+=====================================================================
 """
