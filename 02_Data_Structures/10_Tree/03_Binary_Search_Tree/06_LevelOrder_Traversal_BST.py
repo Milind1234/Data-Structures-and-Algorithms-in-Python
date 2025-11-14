@@ -8,7 +8,9 @@ To learn how to:
 1️⃣ Create a perfectly balanced Binary Search Tree  
 2️⃣ Insert nodes using BST insertion rules  
 3️⃣ Perform **Level Order Traversal (Breadth-First Search)**  
-   using a **custom linked-list queue**  
+   using BOTH:
+   ✔ Custom LinkedList Queue  
+   ✔ Python collections.deque  
 
 This version builds a **complete 3-level BST**, where *every* node has a left and right child.
 
@@ -30,59 +32,38 @@ BST formed:
             1    3    5     7
 
 This is a **perfect BST** because:
-✔ All leaf nodes are at the same depth  
+✔ All leaf nodes are at same depth  
 ✔ Every internal node has two children  
-✔ Tree height = 3  
+✔ Height = 3  
 ✔ Balanced and symmetrical  
-
-
-========================================================================
-🧩 INSERTION LOGIC (insertNodeBST)
-========================================================================
-
-BST insertion rules:
-
-1️⃣ If tree is empty → new value becomes ROOT  
-2️⃣ If new value ≤ current node → go LEFT subtree  
-3️⃣ If new value > current node → go RIGHT subtree  
-4️⃣ Continue recursively until the correct empty spot is found  
-5️⃣ Insert the new node there  
-
-This structure ensures searches are efficient:
-- Average time: **O(log n)**
 
 
 ========================================================================
 🔁 LEVEL ORDER TRAVERSAL (BFS)
 ========================================================================
 
-Algorithm (using custom QueueLinkedList):
+We implement **two versions**:
 
-1️⃣ Start by enqueueing the root  
-2️⃣ While queue is not empty:
-      - Dequeue a node  
-      - Print its value  
-      - Enqueue its LEFT child (if exists)  
-      - Enqueue its RIGHT child (if exists)
+1️⃣ **Using QueueLinkedList** — good for understanding queue mechanics  
+2️⃣ **Using collections.deque** — Python’s optimized queue structure  
 
-Traversal order for this tree is:
+Traversal order:
 
     4 → 2 → 6 → 1 → 3 → 5 → 7
 
-
 ========================================================================
-💻 COMPLETE PYTHON CODE (Your Version, Documented)
+💻 COMPLETE PYTHON CODE (Both Traversal Versions)
 ========================================================================
 """
 
 import QueueLinkedList as queue
+from collections import deque
 
 # ============================================================
 # 🏷️ BST NODE CLASS
 # ============================================================
 class BSTNode:
     def __init__(self, data):
-        # Each BST node has: data, leftchild, rightchild
         self.data = data
         self.leftchild = None
         self.rightchild = None
@@ -92,21 +73,13 @@ class BSTNode:
 # 🏷️ INSERT FUNCTION — insertNodeBST
 # ============================================================
 def insertNodeBST(rootnode, node_value):
-    """
-    Inserts a value into BST following BST rules.
-    """
-    # CASE 1 — Tree is empty → insert at root
     if rootnode.data == None:
         rootnode.data = node_value
-
-    # CASE 2 — Insert into LEFT subtree
     elif node_value <= rootnode.data:
         if rootnode.leftchild is None:
             rootnode.leftchild = BSTNode(node_value)
         else:
             insertNodeBST(rootnode.leftchild, node_value)
-
-    # CASE 3 — Insert into RIGHT subtree
     else:
         if rootnode.rightchild is None:
             rootnode.rightchild = BSTNode(node_value)
@@ -117,12 +90,17 @@ def insertNodeBST(rootnode, node_value):
 
 
 # ============================================================
-# 🏷️ LEVEL ORDER TRAVERSAL (BFS)
+# 🏷️ LEVEL ORDER TRAVERSAL — Using Custom QueueLinkedList
 # ============================================================
-def levelOrderTraversal(rootnode):
+def levelOrderTraversal_LinkedList(rootnode):
     """
-    Uses a LinkedList-based Queue to perform BFS traversal.
-    Prints nodes level-by-level.
+    BFS Traversal using QueueLinkedList.
+    Step-by-step:
+    1. Enqueue root
+    2. While queue not empty:
+        - Dequeue
+        - Print node
+        - Enqueue left then right children
     """
     if not rootnode:
         return "BST is Empty"
@@ -130,17 +108,41 @@ def levelOrderTraversal(rootnode):
     customQueue = queue.Queue()
     customQueue.enqueue(rootnode)
 
-    print("\n🌲 Level Order Traversal Output:")
+    print("\n🌲 Level Order Traversal (QueueLinkedList):")
 
     while not(customQueue.isEmpty()):
         root = customQueue.dequeue()
         print(root.value.data)
 
-        if root.value.leftchild is not None:
+        if root.value.leftchild:
             customQueue.enqueue(root.value.leftchild)
-
-        if root.value.rightchild is not None:
+        if root.value.rightchild:
             customQueue.enqueue(root.value.rightchild)
+
+
+# ============================================================
+# 🏷️ LEVEL ORDER TRAVERSAL — Using collections.deque
+# ============================================================
+def levelOrderTraversal_Deque(rootnode):
+    """
+    BFS Traversal using Python's deque (highly optimized).
+    Same logic as above but faster in practice.
+    """
+    if not rootnode:
+        return "BST is Empty"
+
+    q = deque([rootnode])
+
+    print("\n🌲 Level Order Traversal (collections.deque):")
+
+    while q:
+        node = q.popleft()
+        print(node.data)
+
+        if node.leftchild:
+            q.append(node.leftchild)
+        if node.rightchild:
+            q.append(node.rightchild)
 
 
 # ============================================================
@@ -157,10 +159,11 @@ print(insertNodeBST(newBST, 5))
 print(insertNodeBST(newBST, 7))
 
 print("\n📘 BST Inorder Output (Sorted):")
-print(newBST)   # Uses __str__ if defined
+print(newBST)   # Uses __str__ if implemented
 
-# Level Order Traversal
-levelOrderTraversal(newBST)
+# Traversal Outputs
+levelOrderTraversal_LinkedList(newBST)
+levelOrderTraversal_Deque(newBST)
 
 
 r"""
@@ -168,18 +171,27 @@ r"""
 📤 OUTPUT (Expected)
 ========================================================================
 
-The Node 4 has been successfully Inserted
-The Node 2 has been successfully Inserted
-The Node 6 has been successfully Inserted
-The Node 1 has been successfully Inserted
-The Node 3 has been successfully Inserted
-The Node 5 has been successfully Inserted
-The Node 7 has been successfully Inserted
+The Node 4 has been successfully Inserted  
+The Node 2 has been successfully Inserted  
+The Node 6 has been successfully Inserted  
+The Node 1 has been successfully Inserted  
+The Node 3 has been successfully Inserted  
+The Node 5 has been successfully Inserted  
+The Node 7 has been successfully Inserted  
 
 📘 BST Inorder Output (Sorted):
 1 2 3 4 5 6 7
 
-🌲 Level Order Traversal Output:
+🌲 Level Order Traversal (QueueLinkedList):
+4
+2
+6
+1
+3
+5
+7
+
+🌲 Level Order Traversal (collections.deque):
 4
 2
 6
@@ -195,7 +207,7 @@ The Node 7 has been successfully Inserted
 
 INSERTION:
     Average → O(log n)
-    Worst   → O(n) (if tree becomes skewed)
+    Worst   → O(n) if skewed
 
 LEVEL ORDER TRAVERSAL:
     Time  → O(n)
@@ -204,10 +216,10 @@ LEVEL ORDER TRAVERSAL:
 ========================================================================
 ✔ SUMMARY
 ========================================================================
-✔ Built a perfect BST (7 nodes, height 3)  
-✔ Inserted nodes using recursive BST algorithm  
-✔ Performed BFS (level-order traversal) using custom queue  
-✔ Verified BST structure with sorted inorder output  
+✔ Built a perfect BST  
+✔ Inserted seven nodes using recursive BST rules  
+✔ Performed BFS using BOTH queue methods  
+✔ Both traversals give identical output  
 
 ========================================================================
 """
