@@ -19,14 +19,11 @@ A BST is a special type of Binary Tree with rules:
 2️⃣ **Right subtree** contains values **> parent**
 
 Example BST:
-
-                     5
-                  /      \
-                4         6
-              /          /  \
-             2          7    8
-              \
-               3
+                4
+             /     \
+           2         6
+         /  \      /   \
+        1    3    5     7
 
 This ordering makes:
 ✔ Searching fast  
@@ -45,16 +42,14 @@ Algorithm:
 
 Example output for this tree:
 
-    5
-  /    \
- 4      6
-/      / \
-2     7   8
- \
-  3
+                4
+             /     \
+           2         6
+         /  \      /   \
+        1    3    5     7
 
 Preorder Output:
-→ 5, 4, 2, 3, 6, 7, 8
+→ 4 , 2 , 1 , 3 , 6 , 5 , 7
 
 ==================================================================
 💻 Code (Your exact code – only comments added)
@@ -110,13 +105,14 @@ def preOrderTraversal(rootnode):
 # ============================================================
 newBST = BSTNode(None)
 
-print(insertNodeBST(newBST, 5))
 print(insertNodeBST(newBST, 4))
-print(insertNodeBST(newBST, 6))
-print(insertNodeBST(newBST, 7))
 print(insertNodeBST(newBST, 2))
+print(insertNodeBST(newBST, 6))
+print(insertNodeBST(newBST, 1))
 print(insertNodeBST(newBST, 3))
-print(insertNodeBST(newBST, 8))
+print(insertNodeBST(newBST, 5))
+print(insertNodeBST(newBST, 7))
+
 
 print("\n📘 BST Inorder Output (Sorted):")
 print(newBST)     # __str__ prints inorder traversal

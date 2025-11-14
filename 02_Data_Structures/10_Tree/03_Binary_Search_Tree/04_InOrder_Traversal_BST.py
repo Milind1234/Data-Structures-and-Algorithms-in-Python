@@ -32,13 +32,12 @@ This structure makes:
 🏷️ InOrder Traversal (Left → Root → Right)
 ==================================================================
 
-                     5
-                  /      \
-                4         6
-              /          /  \
-             2          7    8
-              \
-               3
+                4
+             /     \
+           2         6
+         /  \      /   \
+        1    3    5     7
+
 The rule:
 ---------
 1️⃣ Traverse LEFT subtree  
@@ -49,7 +48,7 @@ In a BST, this ALWAYS produces a **sorted list**
 because values in the left subtree < root < right subtree.
 
 Example output for this BST:
-2, 3, 4, 5, 6, 7, 8
+-> 1 , 2 , 3 , 4 , 5 , 6 , 7 
 
 
 ==================================================================
@@ -114,13 +113,14 @@ def inOrderTraversal(rootnode):
 # ============================================================
 newBST = BSTNode(None)
 
-print(insertNodeBST(newBST, 5))
 print(insertNodeBST(newBST, 4))
-print(insertNodeBST(newBST, 6))
-print(insertNodeBST(newBST, 7))
 print(insertNodeBST(newBST, 2))
+print(insertNodeBST(newBST, 6))
+print(insertNodeBST(newBST, 1))
 print(insertNodeBST(newBST, 3))
-print(insertNodeBST(newBST, 8))
+print(insertNodeBST(newBST, 5))
+print(insertNodeBST(newBST, 7))
+
 
 print("\n📘 BST Inorder Output (Sorted):")
 print(newBST)   # This uses __str__ inside BSTNode
@@ -132,16 +132,16 @@ r"""
 ==================================================================
 📤 Output (Expected)
 ==================================================================
-The Node 5 has been successfully Inserted 
 The Node 4 has been successfully Inserted 
-The Node 6 has been successfully Inserted 
-The Node 7 has been successfully Inserted 
 The Node 2 has been successfully Inserted 
+The Node 6 has been successfully Inserted 
+The Node 1 has been successfully Inserted 
 The Node 3 has been successfully Inserted 
-The Node 8 has been successfully Inserted 
+The Node 5 has been successfully Inserted 
+The Node 7 has been successfully Inserted 
 
 📘 BST Inorder Output (Sorted):
-2 3 4 5 6 7 8
+-> 1 , 2 , 3 , 4 , 5 , 6 , 7 
 
 📘 InOrder Traversal Output:
 2
