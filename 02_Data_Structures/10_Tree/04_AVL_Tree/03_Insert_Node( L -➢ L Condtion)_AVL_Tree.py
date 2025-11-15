@@ -2,7 +2,7 @@ r"""
 📘 Topic: AVL Tree — Insertion (Case 1: No Rotation, Case 2: LL Rotation)
 =========================================================================
 
-In this lecture, we learn:
+In this Note, we learn:
 
 1️⃣ When rotation is NOT required  
 2️⃣ When rotation IS required  
@@ -11,7 +11,6 @@ In this lecture, we learn:
 5️⃣ Working algorithm + example  
 6️⃣ Time & Space Complexity  
 
-This note matches exactly the AppMillers explanations shown in class.
 
 =====================================================================
 🌳 1) Understanding AVL Insertion
@@ -46,6 +45,8 @@ Example:
 
 Insert 75:
 
+Before inserting 75:
+
                70
             /       \
          50          90
@@ -53,6 +54,17 @@ Insert 75:
      30    60    80      100
     /  \
    20  40
+
+After Inserting 75:
+
+
+               70
+            /       \
+         50          90
+       /   \       /     \
+     30    60    80      100
+    /  \.       /
+   20  40.    75
 
 Path:
 - 75 > 70 → go right  
@@ -67,11 +79,13 @@ Tree remains balanced → **No rotation required**.
 
 Insert **10**:
 
-                    70
-               /           \
-             50             90
-           /   \          /    \
-         30    60       80     100
+
+                   70
+                /      \
+               /        \
+             50         90
+           /   \      /    \
+         30    60   80     100
         /
       20
 
@@ -121,7 +135,7 @@ After RIGHT rotation:
 Entire tree becomes balanced.
 
 =====================================================================
-🧩 5) LL Rotation — Algorithm (from slides)
+🧩 5) LL Rotation — Algorithm 
 =====================================================================
 
 Right Rotation Algorithm (LL Case)
@@ -133,7 +147,7 @@ STEP 1:
     newRoot = disbalancedNode.leftChild
 
 STEP 2:
-    disbalancedNode.leftChild = newRoot.rightChild
+    disbalancedNode.leftChild = disbalancedNode.leftChild.rightChild
 
 STEP 3:
     newRoot.rightChild = disbalancedNode
@@ -197,7 +211,7 @@ Because rotation adjusts only 2–3 pointers and updates two heights.
 ✔ LL is fixed by **Right Rotation**  
 ✔ Rotation keeps AVL height = O(log n)  
 
-Next Lectures:
+Next Notes:
 --------------
 ➡ Left-Right (LR) Condition  
 ➡ Right-Right (RR) Condition  
