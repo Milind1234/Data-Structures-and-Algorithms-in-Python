@@ -266,7 +266,7 @@ Only 2–3 pointer updates are done in each rotation.
 ✔ Final tree always becomes height-balanced  
 ✔ Time complexity = O(1)  
 
-Next Lecture:
+Next Note:
 -------------
 ➡ Combining LL + LR + RR + RL into the **complete AVL insertion algorithm**
 
