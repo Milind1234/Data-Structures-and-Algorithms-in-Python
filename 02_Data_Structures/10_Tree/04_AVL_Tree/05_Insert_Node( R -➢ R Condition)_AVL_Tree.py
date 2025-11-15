@@ -4,7 +4,7 @@ r"""
 Rotation Required → LEFT ROTATION  
 =====================================================================
 
-In previous lectures, we learned:
+In previous Notes, we learned:
 
 ✔ LL Condition → fixed by **Right Rotation**  
 ✔ LR Condition → fixed by **Left Rotation + Right Rotation**
@@ -265,7 +265,7 @@ Because:
 ✔ Ensures AVL remains balanced (height = O(log n))
 
 
-Next Lecture:
+Next Note:
 -------------
 ➡ Right-Left (RL) Condition (requires Right Rotation + Left Rotation)
 
