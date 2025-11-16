@@ -87,7 +87,7 @@ def insertNode(rootnode , nodevalue):
     elif nodevalue < rootnode.data:
         rootnode.leftchild = insertNode(rootnode.leftchild ,nodevalue)
     else:
-        rootnode.rigthchild = insertNode(rootnode.rightchild ,nodevalue)
+        rootnode.rightchild = insertNode(rootnode.rightchild ,nodevalue)
 
     rootnode.height = 1 + max(getHeight(rootnode.leftchild) , getHeight(rootnode.rightchild))
     balance = getBalance(rootnode)
@@ -98,13 +98,14 @@ def insertNode(rootnode , nodevalue):
         return rightRotate(rootnode)
     if balance < -1 and nodevalue > rootnode.rightchild.data:
         return leftRotate(rootnode)
-    if balance < -1 and nodevalue < rootnode.leftchild.data:
-        rootnode.rightchild = rightRotate(rootnode.rigthchild)
+    if balance < -1 and nodevalue < rootnode.rightchild.data:
+        rootnode.rightchild = rightRotate(rootnode.rightchild)
         return leftRotate(rootnode)
+    return rootnode
 
 
-newAVL = AVLNode(70)
-newAVL = insertNode(newAVL, 30)
+
+newAVL = AVLNode(30)
 newAVL = insertNode(newAVL, 25)
 newAVL = insertNode(newAVL, 35)
 newAVL = insertNode(newAVL, 20)
