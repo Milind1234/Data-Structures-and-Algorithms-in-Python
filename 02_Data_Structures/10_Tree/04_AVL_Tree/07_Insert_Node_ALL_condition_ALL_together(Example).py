@@ -13,7 +13,7 @@ that triggers **all four imbalance cases**:
     ✔ RR (Right-Right)
     ✔ RL (Right-Left)
 
-The example sequence used (AppMillers lecture):
+The example sequence used :
 
     Insert in this order:
     30, 25, 35, 20, 15, 5, 10, 50, 60, 70, 65
