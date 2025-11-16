@@ -1,6 +1,6 @@
 import QueueLinkedList as queue
 
-class AVLTreeNode:
+class AVLNode:
     def __init__(self , data):
         self.data = data
         self.leftchild = None
@@ -68,40 +68,51 @@ def rightRotate(disbalanceNode):
     newRoot.height = 1 + max(getHeight(newRoot.leftchild), getHeight(newRoot.rightchild))
     return newRoot
 
+def leftRotate(disbalanceNode):
+    newRoot = disbalanceNode.rightchild
+    disbalanceNode.rightchild = disbalanceNode.rightchild.leftchild
+    newRoot.leftchild = disbalanceNode
+    disbalanceNode.height = 1 + max(getHeight(disbalanceNode.leftchild) , getHeight(disbalanceNode.rightchild))
+    newRoot.height = 1 + max(getHeight(newRoot.leftchild) , getHeight(newRoot.rightchild))
+    return newRoot
+
+def getBalance(rootnode):
+    if not rootnode:
+        return 0
+    return getHeight(rootnode.leftchild) - getHeight(rootnode.rightchild)
+
+def insertNode(rootnode , nodevalue):
+    if not rootnode:
+        return AVLNode(nodevalue)
+    elif nodevalue < rootnode.data:
+        rootnode.leftchild = insertNode(rootnode.leftchild ,nodevalue)
+    else:
+        rootnode.rigthchild = insertNode(rootnode.rightchild ,nodevalue)
+
+    rootnode.height = 1 + max(getHeight(rootnode.leftchild) , getHeight(rootnode.rightchild))
+    balance = getBalance(rootnode)
+    if balance > 1 and nodevalue < rootnode.leftchild.data:
+        return rightRotate(rootnode)
+    if balance > 1 and nodevalue > rootnode.leftchild.data:
+        rootnode.leftchild = leftRotate(rootnode.leftchild)
+        return rightRotate(rootnode)
+    if balance < -1 and nodevalue > rootnode.rightchild.data:
+        return leftRotate(rootnode)
+    if balance < -1 and nodevalue < rootnode.leftchild.data:
+        rootnode.rightchild = rightRotate(rootnode.rigthchild)
+        return leftRotate(rootnode)
 
 
-
-
-
-
-
-
-
-if __name__ == "__main__":
-    # Create small AVL-like tree manually to demo traversals & search
-    # Structure (balanced example):
-    #           40
-    #        /      \
-    #      20        60
-    #     /  \      /  \
-    #   10   30   50   70
-
-    root = AVLTreeNode(40)
-
-    root.leftchild = AVLTreeNode(20)
-    root.rightchild = AVLTreeNode(60)
-
-    root.leftchild.leftchild = AVLTreeNode(10)
-    root.leftchild.rightchild = AVLTreeNode(30)
-
-    root.rightchild.leftchild = AVLTreeNode(50)
-    root.rightchild.rightchild = AVLTreeNode(70)
-
-
-    print("\n🔎 Search Examples:")
-    print("Search 60:", searchNodeAVL(root, 60))
-    print("Search 25:", searchNodeAVL(root, 25))  # not present
-
-    # Single-node example (creation)
-    newAVL = AVLTreeNode(10)
-    print("\n📌 Single-node AVL created with data =", newAVL.data)
+newAVL = AVLNode(70)
+newAVL = insertNode(newAVL, 30)
+newAVL = insertNode(newAVL, 25)
+newAVL = insertNode(newAVL, 35)
+newAVL = insertNode(newAVL, 20)
+newAVL = insertNode(newAVL, 15)
+newAVL = insertNode(newAVL, 5)
+newAVL = insertNode(newAVL, 10)
+newAVL = insertNode(newAVL, 50)
+newAVL = insertNode(newAVL, 60)
+newAVL = insertNode(newAVL, 70)
+newAVL = insertNode(newAVL, 65) 
+levelOrderTraversal(newAVL)
