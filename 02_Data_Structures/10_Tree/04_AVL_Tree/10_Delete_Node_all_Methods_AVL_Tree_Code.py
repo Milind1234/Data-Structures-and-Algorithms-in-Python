@@ -506,16 +506,16 @@ Observed BFS outputs (from running the code with the provided sequence):
 # SUMMARY TABLE (quick reference)
 # -------------------------------
 """
------------------------------------------------------------------------------------
-Function                  | Time Complexity          | Space Complexity.          |
-------------------------- | ------------------------ | -------------------------- |
-AVLNode.__init__          | O(1)                     | O(1)                       |
-getHeight                 | O(1)                     | O(1)                       |
-getBalance                | O(1)                     | O(1).                      |
-rightRotate / leftRotate  | O(1) each                | O(1).                      |
-getMinValueNode           | O(h) (height)            | O(h) recursion             |
-insertNode                | O(log n) avg, O(n) worst | O(log n) avg recursion.    |
-deleteNode                | O(log n) avg, O(n) worst | O(log n) avg recursion.    |
-levelOrderTraversal       | O(n)                     | O(n)                       |
------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+| Function                  | Time Complexity          | Space Complexity.          |
+|-------------------------- | ------------------------ | -------------------------- |
+| AVLNode.__init__          | O(1)                     | O(1)                       |
+| getHeight                 | O(1)                     | O(1)                       |
+| getBalance                | O(1)                     | O(1).                      |
+| rightRotate / leftRotate  | O(1) each                | O(1).                      |
+| getMinValueNode           | O(h) (height)            | O(h) recursion             |
+| insertNode                | O(log n) avg, O(n) worst | O(log n) avg recursion.    |
+| deleteNode                | O(log n) avg, O(n) worst | O(log n) avg recursion.    |
+| levelOrderTraversal       | O(n)                     | O(n)                       |
+-------------------------------------------------------------------------------------
 """
