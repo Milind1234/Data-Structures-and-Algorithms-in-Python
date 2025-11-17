@@ -72,34 +72,6 @@ def levelOrderTraversal(rootnode):
         if root.value.rightchild is not None:
             customQueue.enqueue(root.value.rightchild)
 
-
-# ----------------------------
-# searchNodeAVL
-# ----------------------------
-def searchNodeAVL(rootnode, target_node):
-    """
-    BST search on AVL tree (recursive).
-
-    Behavior:
-      - Returns a short message string indicating found/not found.
-      - Works because AVL preserves BST property.
-
-    Time complexity: O(log n) average for balanced AVL, O(n) worst-case (if tree becomes skewed)
-    Space complexity: O(log n) recursion stack on balanced AVL, O(n) worst-case
-    """
-    if not rootnode:
-        return "Target Not Found"
-
-    if rootnode.data == target_node:
-        return f"The Target {target_node} is Found"
-
-    if target_node < rootnode.data:
-        return searchNodeAVL(rootnode.leftchild, target_node)
-
-    if target_node > rootnode.data:
-        return searchNodeAVL(rootnode.rightchild, target_node)
-
-
 # ----------------------------
 # getHeight
 # ----------------------------
@@ -434,10 +406,6 @@ if __name__ == "__main__":
     # (Function left unchanged; you asked not to explain it.)
     print("Level order traversal (BFS) of final AVL tree:")
     levelOrderTraversal(newAVL)
-
-    # Quick search examples
-    print(searchNodeAVL(newAVL, 65))
-    print(searchNodeAVL(newAVL, 999))  # not found
 
 """
 ===============================================================================
