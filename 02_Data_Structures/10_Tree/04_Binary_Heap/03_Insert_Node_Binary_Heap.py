@@ -41,9 +41,9 @@ Indices:   0   1   2   3   4   5   6   7
 Array : [ X,  5, 10, 20, 30, 40, 50, 60 ]
 
 Tree:
-                5 (index 1)
-              /   \
-         10 (2)   20 (3)
+                 5 (index 1)
+              /    \
+          10 (2)   20 (3)
          /  \     /  \
     30(4) 40(5) 50(6) 60(7)
 
@@ -238,12 +238,10 @@ def heapifyTreeInsert(rootnode: Heap, index: int, heapType: str):
     """
     if not rootnode:
         raise ValueError("rootnode is required")
-    if index <= 1:
-        return  # already at root or invalid index
 
     parentIndex = int(index/2)
     if index <= 1:
-        return 
+        return  # already at root or invalid index
     if heapType == "Min" : # Min heap
         # If child < parent, swap
         if rootnode.customList[index] < rootnode.customList[parentIndex]:
