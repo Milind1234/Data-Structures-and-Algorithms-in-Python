@@ -1,4 +1,4 @@
-"""
+r"""
 ===============================================================================
 📘 BinaryHeap_Extract_Notes.py — Extract Node from Binary Heap (Min / Max Heap)
 ===============================================================================
@@ -138,19 +138,19 @@ class Heap:
 # ----------------------------
 # Basic helpers (peek, size, traversal)
 # ----------------------------
-def peekOfHeap(rootnode: Optional[Heap]):
-    """Return root value (index 1) or message if empty."""
+def peekOfHeap(rootnode):
+    """Return root value (index 1z) or message if empty."""
     if not rootnode or rootnode.heapSize == 0:
         return "Tree is Empty"
     return rootnode.customList[1]
 
-def sizeOfHeap(rootnode: Optional[Heap]):
+def sizeOfHeap(rootnode):
     """Return number of filled cells (heapSize) or message if heap object None."""
     if not rootnode:
         return "Tree is Empty"
     return rootnode.heapSize
 
-def levelOrderTraversal(rootnode: Optional[Heap]):
+def levelOrderTraversal(rootnode):
     """Print values from index 1 .. heapSize (left → right)."""
     if not rootnode or rootnode.heapSize == 0:
         print("Tree is Empty")
@@ -194,7 +194,7 @@ def insertNode(rootnode , node_value , heapType):
     return f"The value {node_value} has been successfully inserted into {heapType} Heap"
 
 
-"""
+r"""
 ===============================================================================
 📘 heapifyTreeExtract(rootnode, index, heapType)
 ===============================================================================
