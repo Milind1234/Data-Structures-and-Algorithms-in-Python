@@ -111,22 +111,25 @@ FLOWCHART = """
 # -----------------------------------------------------------------------------
 
 def merge(customList , left , middle , right):
-    n1 = middle - left + 1
-    n2 = right - middle
+    n1 = middle - left + 1         # Size of left subarray
+    n2 = right - middle            # Size of right subarray
 
-    L = [0] * (n1)
-    R = [0] * (n2)
+    L = [0] * n1                   # Temporary left array
+    R = [0] * n2                   # Temporary right array
 
-    for i in range(0 , n1):
-        L[i] = customList[left+i]
+    # Copy left half → L
+    for i in range(n1):
+        L[i] = customList[left + i]
 
-    for j in range(0 , n2):
-        R[j] = customList[middle+1+j]
+    # Copy right half → R
+    for j in range(n2):
+        R[j] = customList[middle + 1 + j]
 
-    i = 0
-    j = 0   
-    k = left
-    
+    i = 0   # Pointer for L
+    j = 0   # Pointer for R
+    k = left  # Pointer for main array
+
+    # Merge L and R back into customList
     while i < n1 and j < n2:
         if L[i] <= R[j]:
             customList[k] = L[i]
@@ -136,11 +139,13 @@ def merge(customList , left , middle , right):
             j += 1
         k += 1
 
+    # Copy leftover elements of L (if any)
     while i < n1:
         customList[k] = L[i]
         i += 1
         k += 1
 
+    # Copy leftover elements of R (if any)
     while j < n2:
         customList[k] = R[j]
         j += 1
@@ -149,10 +154,10 @@ def merge(customList , left , middle , right):
 
 def mergeSort(customList , left , right):
     if left < right:
-        middle = (left + right) // 2
-        mergeSort(customList , left , middle)
-        mergeSort(customList , middle + 1, right)
-        merge(customList,left , middle , right)
+        middle = (left + right) // 2   # Mid point of current segment
+        mergeSort(customList , left , middle)        # Sort left half
+        mergeSort(customList , middle + 1, right)    # Sort right half
+        merge(customList, left , middle , right)     # Merge both halves
     return customList
 
 
