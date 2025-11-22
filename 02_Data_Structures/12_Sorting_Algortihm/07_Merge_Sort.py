@@ -109,56 +109,150 @@ FLOWCHART = """
 # -----------------------------------------------------------------------------
 # EXACT CODE YOU PROVIDED (kept unchanged)
 # -----------------------------------------------------------------------------
+"""
+Merge Sort (annotated) — in-place sorting using temporary subarrays
 
-def merge(customList , left , middle , right):
-    n1 = middle - left + 1         # Size of left subarray
-    n2 = right - middle            # Size of right subarray
+This file contains the two functions you provided (merge and mergeSort)
+but each function now includes detailed algorithm notes and code-level
+explanations as Python comments and docstrings.
 
-    L = [0] * n1                   # Temporary left array
-    R = [0] * n2                   # Temporary right array
+Usage:
+    arr = [2,1,4,3,5,8,7,9,6,10]
+    mergeSort(arr, 0, len(arr)-1)
+    print(arr)   # arr is sorted in-place
 
-    # Copy left half → L
+Properties:
+    - Stable sorting algorithm
+    - Time complexity: O(n log n) for best/average/worst cases
+    - Space complexity: O(n) due to temporary arrays created during merge
+"""
+# -----------------------------------------------------------------------------
+def merge(customList, left, middle, right):
+    """
+    Merge two sorted subarrays of customList in-place.
+
+    The two sorted subarrays are:
+        customList[left : middle+1]     (length n1)
+        customList[middle+1 : right+1]  (length n2)
+
+    Postcondition:
+        customList[left : right+1] will be sorted.
+
+    Algorithm summary (merge step of merge sort):
+      1. Copy the left half into a temporary array L and the right half into R.
+      2. Maintain pointers i (L), j (R) and k (write position in customList).
+      3. Repeatedly choose the smaller of L[i] and R[j] and write it to customList[k].
+      4. When one temporary array is exhausted, copy remaining elements from the other.
+    
+    Complexity for this merge call:
+      - Time: O(n1 + n2) = O(right - left + 1)
+      - Space: O(n1 + n2) temporary extra space
+    """
+
+    # -------------------------
+    # 1) Compute sizes of halves
+    # -------------------------
+    n1 = middle - left + 1      # size of left subarray
+    n2 = right - middle         # size of right subarray
+
+    # -------------------------
+    # 2) Allocate temporary arrays
+    # -------------------------
+    # We copy to temporaries because we'll overwrite positions in customList
+    # while merging. Using temporaries preserves read-sources.
+    L = [0] * n1
+    R = [0] * n2
+
+    # -------------------------
+    # 3) Copy data into temporaries
+    # -------------------------
+    # copy left half into L
     for i in range(n1):
         L[i] = customList[left + i]
-
-    # Copy right half → R
+    # copy right half into R
     for j in range(n2):
         R[j] = customList[middle + 1 + j]
 
-    i = 0   # Pointer for L
-    j = 0   # Pointer for R
-    k = left  # Pointer for main array
+    # -------------------------
+    # 4) Merge loop: choose smaller element repeatedly
+    # -------------------------
+    i = 0       # pointer for L (next candidate to read)
+    j = 0       # pointer for R (next candidate to read)
+    k = left    # write pointer into customList
 
-    # Merge L and R back into customList
+    # While both arrays have remaining elements:
+    # compare L[i] and R[j], write the smaller and advance its pointer.
     while i < n1 and j < n2:
         if L[i] <= R[j]:
+            # L[i] is smaller (or equal => stable: take from L first)
             customList[k] = L[i]
             i += 1
         else:
+            # R[j] is smaller
             customList[k] = R[j]
             j += 1
         k += 1
 
-    # Copy leftover elements of L (if any)
+    # -------------------------
+    # 5) Copy any remaining elements
+    # -------------------------
+    # One of the temporary arrays may still have elements left.
+    # Copy them as-is (they are already sorted internally).
     while i < n1:
         customList[k] = L[i]
         i += 1
         k += 1
 
-    # Copy leftover elements of R (if any)
     while j < n2:
         customList[k] = R[j]
         j += 1
         k += 1
 
+    # At this point customList[left:right+1] is merged and sorted.
+    return None   # function mutates customList in-place
 
-def mergeSort(customList , left , right):
+
+# -----------------------------------------------------------------------------
+def mergeSort(customList, left, right):
+    """
+    Recursively sort customList[left:right+1] using merge sort.
+
+    Algorithm (Divide & Conquer):
+      - Base case: if the segment has 0 or 1 element (left >= right) it's already sorted.
+      - Recursive case:
+          1) Compute middle index
+          2) Recursively sort left half: mergeSort(customList, left, middle)
+          3) Recursively sort right half: mergeSort(customList, middle+1, right)
+          4) Merge the two sorted halves with merge(...)
+
+    Notes:
+      - This implementation returns the list for convenience, but sorting is done in-place.
+      - Recursion depth is O(log n). Each level performs O(n) merge work overall,
+        which leads to O(n log n) time.
+      - Additional memory is used by merge via temporary arrays (total O(n) across merges).
+
+    Example:
+      >>> arr = [3,1,4,2]
+      >>> mergeSort(arr, 0, len(arr)-1)
+      >>> print(arr)   # [1,2,3,4]
+    """
+    # Base case: a segment of length 0 or 1 is already sorted.
     if left < right:
-        middle = (left + right) // 2   # Mid point of current segment
-        mergeSort(customList , left , middle)        # Sort left half
-        mergeSort(customList , middle + 1, right)    # Sort right half
-        merge(customList, left , middle , right)     # Merge both halves
+        # Find middle safely using integer division
+        middle = (left + right) // 2
+
+        # Recursively sort the left half
+        mergeSort(customList, left, middle)
+
+        # Recursively sort the right half
+        mergeSort(customList, middle + 1, right)
+
+        # Merge the two sorted halves into a single sorted segment
+        merge(customList, left, middle, right)
+
+    # return the list (sorted in-place). Returning is optional.
     return customList
+
 
 
 # -----------------------------------------------------------------------------
