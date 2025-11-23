@@ -115,7 +115,7 @@ def _bar_visual(arr: List[int], lo: int, hi: int, pivot_idx: int = None, swap_id
 # Verbose / dry-run instrumented quicksort (does not change original functions)
 # -----------------------------------------------------------------------------
 
-def partition_trace(my_list: List[int], lo: int, hi: int, step_prefix: str = '') -> (int, List[str]):
+def partition_trace(my_list: List[int], lo: int, hi: int, step_prefix: str = ''):
     """Run pivot partition on a copy of the list and return debug frames.
 
     Returns (pivot_final_index, frames) where frames is a list of strings
