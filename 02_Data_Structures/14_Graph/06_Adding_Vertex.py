@@ -78,6 +78,14 @@ class Graph:
 
         When graph is newly created → it is EMPTY:
             {}
+        ────────────────────────────────────────────────────────
+        ⏳ Time Complexity: O(1)
+            Reason: Just initializes an empty dictionary.
+
+        💾 Space Complexity: O(1)
+            No vertices or edges stored yet.
+        ────────────────────────────────────────────────────────
+        
         """
         self.adjacency_list = {}
 
@@ -104,6 +112,15 @@ class Graph:
 
             A : []
 
+        ────────────────────────────────────────────────────────
+        ⏳ Time Complexity: O(1)
+            - Checking existence in dictionary is O(1).
+            - Adding a new key is also O(1).
+
+        💾 Space Complexity: O(1)
+            - Each new vertex stores an empty list.
+        ────────────────────────────────────────────────────────
+
         """
         if vertex not in self.adjacency_list.keys():
             self.adjacency_list[vertex] = []   # Create empty edge list
@@ -122,6 +139,14 @@ class Graph:
             C : []
 
         Useful for debugging and visualizing structure.
+        ────────────────────────────────────────────────────────
+        ⏳ Time Complexity: O(V + E)
+            - You iterate over every vertex → O(V)
+            - Printing the neighbor list contributes → O(E)
+
+        💾 Space Complexity: O(1)
+            - Output only. No extra memory stored.
+        ────────────────────────────────────────────────────────
         """
         print("\n📌 GRAPH STRUCTURE:")
         print("-" * 35)
@@ -161,3 +186,13 @@ This means:
 # =============================================================================
 #                                  END
 # =============================================================================
+
+"""
+
+| Method          | Time Complexity | Space Complexity | Explanation                             |
+| --------------- | --------------- | ---------------- | --------------------------------------- |
+| `__init__()`    | **O(1)**        | **O(1)**         | Only creates an empty dictionary        |
+| `add_vertex()`  | **O(1)**        | **O(1)**         | Dictionary insertion + membership check |
+| `print_graph()` | **O(V + E)**    | **O(1)**         | Prints all vertices and adjacency lists |
+
+"""
