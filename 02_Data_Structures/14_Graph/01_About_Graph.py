@@ -29,8 +29,8 @@ Example Graph:
                   / | \
                  /  |  \
                 B   |   D
-                |   |    \
-                E   K ---- J
+               /    |    \
+              E --- K ---- J
 
     - Circles represent NODES: A, B, D, K, J, E
     - Lines represent EDGES (connections)
