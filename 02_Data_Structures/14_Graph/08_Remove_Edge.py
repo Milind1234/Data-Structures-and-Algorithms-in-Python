@@ -138,7 +138,7 @@ class Graph:
 
         Why try/except?
             list.remove(x) raises ValueError if x is not in the list.
-            In lecture we avoid showing a traceback to users, so we catch ValueError.
+            In notes we avoid showing a traceback to users, so we catch ValueError.
 
         Returns:
             True  → operation attempted (vertices existed)
