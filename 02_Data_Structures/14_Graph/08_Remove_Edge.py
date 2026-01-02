@@ -108,26 +108,20 @@ class Graph:
             - Both vertices must exist; otherwise return False.
             - Appends vertex2 into vertex1 list and vertex1 into vertex2 list.
 
-        NOTE (bug fix): original check `if (vertex1 and vertex2) in ...keys()` is incorrect.
-        Correct check is:
-            if vertex1 in self.adjacency_list.keys() and vertex2 in self.adjacency_list.keys()
-
-        Returns True if edge added (or appended), False otherwise.
-
         Time: O(1) average for dict lookup + O(1) append
         Space: O(1) per added edge
         """
         # Correct membership check (both must exist)
         if vertex1 in self.adjacency_list.keys() and vertex2 in self.adjacency_list.keys():
             # Avoid duplicate entries if desired (optional, uncomment to enforce)
-            # if vertex2 not in self.adjacency_list[vertex1]:
-            #     self.adjacency_list[vertex1].append(vertex2)
-            # if vertex1 not in self.adjacency_list[vertex2]:
-            #     self.adjacency_list[vertex2].append(vertex1)
+            if vertex2 not in self.adjacency_list[vertex1]:
+                self.adjacency_list[vertex1].append(vertex2)
+            if vertex1 not in self.adjacency_list[vertex2]:
+                self.adjacency_list[vertex2].append(vertex1)
 
-            # Simple append (matches original lecture behavior)
-            self.adjacency_list[vertex1].append(vertex2)
-            self.adjacency_list[vertex2].append(vertex1)
+            # # Simple append (matches original lecture behavior)
+            # self.adjacency_list[vertex1].append(vertex2)
+            # self.adjacency_list[vertex2].append(vertex1)
             return True
         return False
     
