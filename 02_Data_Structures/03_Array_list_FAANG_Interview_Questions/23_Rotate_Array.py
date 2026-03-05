@@ -540,4 +540,214 @@ if __name__ == "__main__":
     print("Rotated Array:", arr)
 
 ===============================================================================
+
+
+
+
+===============================================================================
+When d > n (Important Visualization)
+===============================================================================
+
+Sometimes the rotation value is larger than array size.
+
+Example
+-------
+arr = [7,3,9,1]
+d = 9
+
+Array size
+n = 4
+
+Instead of rotating 9 times we compute:
+
+    d = d % n
+
+So
+
+    d = 9 % 4
+    d = 1
+
+Meaning rotating 9 times is SAME as rotating 1 time.
+
+Visualization
+-------------
+
+Rotation1 → [3,9,1,7]
+Rotation2 → [9,1,7,3]
+Rotation3 → [1,7,3,9]
+Rotation4 → [7,3,9,1]
+
+Array repeats every 4 rotations.
+
+So 9 rotations = 1 rotation.
+
+===============================================================================
+Left Rotation vs Right Rotation
+===============================================================================
+
+Left Rotation
+-------------
+Elements move toward LEFT.
+
+Example
+
+[1,2,3,4,5] rotate left by 2
+
+Result
+
+[3,4,5,1,2]
+
+Visualization
+
+1 2 | 3 4 5
+
+Right Rotation
+--------------
+Elements move toward RIGHT.
+
+Example
+
+[1,2,3,4,5] rotate right by 2
+
+Result
+
+[4,5,1,2,3]
+
+Visualization
+
+1 2 3 | 4 5
+
+Relationship
+------------
+
+Right rotation by d = Left rotation by (n-d)
+
+Example
+
+Right rotate by 2
+
+= Left rotate by 5-2 = 3
+
+===============================================================================
+How Interviewers Ask This Problem
+===============================================================================
+
+Common Variations
+-----------------
+
+1) Rotate array left by d
+
+2) Rotate array right by k
+
+3) Rotate array using O(1) space
+
+4) Rotate array where d > n
+
+5) Rotate array using reversal algorithm
+
+6) Rotate array using cyclic replacement (juggling)
+
+Typical Interview Flow
+----------------------
+
+Step1
+Candidate explains brute force solution.
+
+Step2
+Interviewer asks to improve time complexity.
+
+Step3
+Candidate suggests extra array solution.
+
+Step4
+Interviewer asks for O(1) space solution.
+
+Step5
+Candidate explains reversal algorithm.
+
+Best Answer in Interviews
+-------------------------
+
+Reversal Algorithm
+
+Because
+
+✔ O(n) time
+✔ O(1) space
+✔ Easy to implement
+
+===============================================================================
+LeetCode vs GFG Difference
+===============================================================================
+
+GFG Version
+-----------
+Function modifies array in-place.
+
+Example
+
+def rotateArr(arr, d):
+    # modify arr
+
+Return value usually not required.
+
+LeetCode Version
+----------------
+
+Function signature
+
+    def rotate(self, nums, k):
+
+But LeetCode usually asks for RIGHT rotation.
+
+Example
+
+Input
+nums = [1,2,3,4,5,6,7]
+k = 3
+
+Output
+[5,6,7,1,2,3,4]
+
+Solution
+--------
+Use reversal algorithm
+
+reverse whole array
+reverse first k
+reverse remaining
+
+===============================================================================
+Quick Revision (Interview Cheat Sheet)
+===============================================================================
+
+If interviewer asks rotation problem remember:
+
+Step1
+Reduce rotations
+
+    d = d % n
+
+Step2
+Best algorithm
+
+Reversal Algorithm
+
+Step3
+3 reversals
+
+reverse(0 , d-1)
+reverse(d , n-1)
+reverse(0 , n-1)
+
+Time Complexity
+
+O(n)
+
+Space Complexity
+
+O(1)
+
+===============================================================================
+
 """
