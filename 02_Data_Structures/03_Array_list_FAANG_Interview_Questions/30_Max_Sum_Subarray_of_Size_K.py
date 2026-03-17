@@ -192,6 +192,8 @@ class SolutionCleanSliding:
             max_sum = max(max_sum, window_sum)
         
         return max_sum
+#   1, 4, 2, 10 ,23, 3, 1, 0, 20
+
 
 """
 Dry Run
